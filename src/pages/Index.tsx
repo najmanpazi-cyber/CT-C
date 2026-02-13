@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import ClinicalInput from "@/components/ClinicalInput";
 import ResultsPanel from "@/components/ResultsPanel";
 import type { CodingRequest, CodingResult, CodingError } from "@/types/coding";
-import { MOCK_RESULT } from "@/components/results/mockData";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [result, setResult] = useState<CodingResult | null>(null);
@@ -11,16 +11,42 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleSubmit = useCallback(async (_request: CodingRequest) => {
+  const handleSubmit = useCallback(async (request: CodingRequest) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
 
-    // Temporary: simulate 3s loading then show mock data
-    setTimeout(() => {
-      setResult(MOCK_RESULT);
+    try {
+      const { data, error: fnError } = await supabase.functions.invoke('generate-codes', {
+        body: {
+          clinical_input: request.clinical_input,
+          laterality: request.laterality,
+          patient_type: request.patient_type,
+          setting: request.setting,
+          time_spent: request.time_spent,
+        },
+      });
+
+      if (fnError || data?.error) {
+        setError({
+          error: true,
+          error_code: data?.error_code || "UNKNOWN",
+          error_message: data?.error_message || fnError?.message || "Unknown error",
+          user_message: data?.user_message || "Something went wrong. Please try again.",
+        });
+      } else {
+        setResult(data as CodingResult);
+      }
+    } catch (err: any) {
+      setError({
+        error: true,
+        error_code: "NETWORK_ERROR",
+        error_message: err?.message || "Network error",
+        user_message: "Something went wrong. Please try again.",
+      });
+    } finally {
       setIsLoading(false);
-    }, 3000);
+    }
   }, []);
 
   const handleRetry = useCallback(() => {
