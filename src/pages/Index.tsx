@@ -65,7 +65,7 @@ const Index = () => {
         <div className="w-full border-b lg:w-2/5 lg:border-b-0 lg:border-r">
           <ClinicalInput onSubmit={handleSubmit} isLoading={isLoading} textareaRef={textareaRef} />
         </div>
-        <div className="flex-1 bg-secondary/30">
+        <div className="flex-1 overflow-y-auto bg-secondary/30 max-h-[60vh] lg:max-h-none">
           <ResultsPanel
             result={result}
             error={error}
