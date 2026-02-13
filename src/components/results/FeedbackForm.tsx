@@ -6,21 +6,28 @@ import { supabase } from "@/integrations/supabase/client";
 
 interface FeedbackFormProps {
   suggestedCode: string;
+  sessionId: string;
+  clinicalInputPreview: string;
   onSubmitted: () => void;
 }
 
-const FeedbackForm = ({ suggestedCode, onSubmitted }: FeedbackFormProps) => {
+const FeedbackForm = ({ suggestedCode, sessionId, clinicalInputPreview, onSubmitted }: FeedbackFormProps) => {
   const [correctCode, setCorrectCode] = useState("");
   const [additionalFeedback, setAdditionalFeedback] = useState("");
 
   const submit = async () => {
-    await supabase.from("coding_feedback").insert({
-      clinical_input_preview: "",
-      suggested_code: suggestedCode,
-      feedback_type: "negative",
-      correct_code: correctCode || null,
-      additional_feedback: additionalFeedback || null,
-    });
+    try {
+      await supabase.from("coding_feedback").insert({
+        clinical_input_preview: clinicalInputPreview,
+        suggested_code: suggestedCode,
+        feedback_type: "negative",
+        correct_code: correctCode || null,
+        additional_feedback: additionalFeedback || null,
+        session_id: sessionId,
+      });
+    } catch (err) {
+      console.error("Feedback insert failed:", err);
+    }
     setCorrectCode("");
     setAdditionalFeedback("");
     onSubmitted();

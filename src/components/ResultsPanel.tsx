@@ -18,9 +18,11 @@ interface ResultsPanelProps {
   error: CodingError | null;
   isLoading: boolean;
   onRetry: () => void;
+  sessionId: string;
+  clinicalInputPreview: string;
 }
 
-const ResultsPanel = ({ result, error, isLoading, onRetry }: ResultsPanelProps) => {
+const ResultsPanel = ({ result, error, isLoading, onRetry, sessionId, clinicalInputPreview }: ResultsPanelProps) => {
   const [verified, setVerified] = useState(false);
   const [copied, setCopied] = useState(false);
   const [altOpen, setAltOpen] = useState(false);
@@ -72,11 +74,16 @@ const ResultsPanel = ({ result, error, isLoading, onRetry }: ResultsPanelProps) 
   const handleFeedback = async (type: "positive" | "negative") => {
     setFeedbackType(type);
     if (type === "positive") {
-      await supabase.from("coding_feedback").insert({
-        clinical_input_preview: "",
-        suggested_code: result.primary_code.cpt_code,
-        feedback_type: "positive",
-      });
+      try {
+        await supabase.from("coding_feedback").insert({
+          clinical_input_preview: clinicalInputPreview,
+          suggested_code: result.primary_code.cpt_code,
+          feedback_type: "positive",
+          session_id: sessionId,
+        });
+      } catch (err) {
+        console.error("Feedback insert failed:", err);
+      }
       setFeedbackSent(true);
       setTimeout(() => setFeedbackSent(false), 2000);
     }
@@ -97,6 +104,8 @@ const ResultsPanel = ({ result, error, isLoading, onRetry }: ResultsPanelProps) 
       {feedbackType === "negative" && !feedbackSent && (
         <FeedbackForm
           suggestedCode={result.primary_code.cpt_code}
+          sessionId={sessionId}
+          clinicalInputPreview={clinicalInputPreview}
           onSubmitted={() => {
             setFeedbackSent(true);
             setFeedbackType(null);

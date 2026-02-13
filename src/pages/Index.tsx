@@ -9,12 +9,15 @@ const Index = () => {
   const [result, setResult] = useState<CodingResult | null>(null);
   const [error, setError] = useState<CodingError | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [lastClinicalInput, setLastClinicalInput] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const sessionId = useRef(crypto.randomUUID());
 
   const handleSubmit = useCallback(async (request: CodingRequest) => {
     setIsLoading(true);
     setError(null);
     setResult(null);
+    setLastClinicalInput(request.clinical_input);
 
     try {
       const { data, error: fnError } = await supabase.functions.invoke('generate-codes', {
@@ -68,6 +71,8 @@ const Index = () => {
             error={error}
             isLoading={isLoading}
             onRetry={handleRetry}
+            sessionId={sessionId.current}
+            clinicalInputPreview={lastClinicalInput.substring(0, 100)}
           />
         </div>
       </div>
