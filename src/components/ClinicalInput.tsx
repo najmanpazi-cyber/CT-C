@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -8,17 +8,21 @@ import type { CodingRequest } from "@/types/coding";
 interface ClinicalInputProps {
   onSubmit: (request: CodingRequest) => void;
   isLoading: boolean;
+  textareaRef?: React.RefObject<HTMLTextAreaElement>;
 }
 
-const ClinicalInput = ({ onSubmit, isLoading }: ClinicalInputProps) => {
+const ClinicalInput = ({ onSubmit, isLoading, textareaRef }: ClinicalInputProps) => {
   const [clinicalInput, setClinicalInput] = useState("");
   const [laterality, setLaterality] = useState("Not specified");
   const [patientType, setPatientType] = useState("Not specified");
   const [setting, setSetting] = useState("Office/Outpatient");
   const [timeSpent, setTimeSpent] = useState("Not specified");
+  const [cooldown, setCooldown] = useState(false);
 
   const handleSubmit = useCallback(() => {
-    if (!clinicalInput.trim() || isLoading) return;
+    if (!clinicalInput.trim() || isLoading || cooldown) return;
+    setCooldown(true);
+    setTimeout(() => setCooldown(false), 2000);
     onSubmit({
       clinical_input: clinicalInput,
       laterality,
@@ -26,7 +30,7 @@ const ClinicalInput = ({ onSubmit, isLoading }: ClinicalInputProps) => {
       setting,
       time_spent: timeSpent,
     });
-  }, [clinicalInput, laterality, patientType, setting, timeSpent, isLoading, onSubmit]);
+  }, [clinicalInput, laterality, patientType, setting, timeSpent, isLoading, cooldown, onSubmit]);
 
   return (
     <div className="flex flex-col gap-4 p-6">
@@ -35,6 +39,7 @@ const ClinicalInput = ({ onSubmit, isLoading }: ClinicalInputProps) => {
           Clinical Documentation
         </label>
         <Textarea
+          ref={textareaRef}
           placeholder="Paste operative notes, encounter documentation, or describe the procedure performed..."
           value={clinicalInput}
           onChange={(e) => setClinicalInput(e.target.value)}
@@ -91,7 +96,7 @@ const ClinicalInput = ({ onSubmit, isLoading }: ClinicalInputProps) => {
 
       <Button
         onClick={handleSubmit}
-        disabled={!clinicalInput.trim() || isLoading}
+        disabled={!clinicalInput.trim() || isLoading || cooldown}
         className="w-full"
         size="lg"
       >
