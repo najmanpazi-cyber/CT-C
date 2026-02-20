@@ -33,7 +33,7 @@ const ClinicalInput = ({ onSubmit, isLoading, textareaRef }: ClinicalInputProps)
   }, [clinicalInput, laterality, patientType, setting, timeSpent, isLoading, cooldown, onSubmit]);
 
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-4 sm:p-6">
       <div>
         <label className="mb-1.5 block text-sm font-medium text-foreground">
           Clinical Documentation
@@ -43,11 +43,11 @@ const ClinicalInput = ({ onSubmit, isLoading, textareaRef }: ClinicalInputProps)
           placeholder="Paste operative notes, encounter documentation, or describe the procedure performed..."
           value={clinicalInput}
           onChange={(e) => setClinicalInput(e.target.value)}
-          className="min-h-[200px] resize-y text-sm"
+          className="min-h-[160px] resize-y text-sm sm:min-h-[200px]"
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="mb-1 block text-xs font-medium text-muted-foreground">Laterality</label>
           <Select value={laterality} onValueChange={setLaterality}>
