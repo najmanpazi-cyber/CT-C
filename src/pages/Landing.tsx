@@ -12,7 +12,7 @@ import {
   Copy,
 } from "lucide-react";
 
-const PRODUCT_NAME = "[PRODUCT NAME]";
+const PRODUCT_NAME = "Claive";
 
 const stats = [
   { value: "38%", label: "Orthopedic coding error rate", sublabel: "Highest of any specialty" },

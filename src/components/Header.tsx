@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft } from "lucide-react";
 
-const PRODUCT_NAME = "[PRODUCT NAME]";
+const PRODUCT_NAME = "Claive";
 
 const Header = () => {
   const navigate = useNavigate();
