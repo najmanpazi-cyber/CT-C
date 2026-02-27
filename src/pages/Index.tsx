@@ -39,6 +39,9 @@ const Index = () => {
           patient_type: request.patient_type,
           setting: request.setting,
           time_spent: request.time_spent,
+          payer_type: request.payer_type,
+          global_period: request.global_period,
+          units: request.units,
         },
       });
 
