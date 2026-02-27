@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import type { ReactNode } from "react";
 
 const PRODUCT_NAME = "Claive";
@@ -37,10 +38,13 @@ const Header = ({ historyDrawer }: HeaderProps) => {
         </span>
       </div>
 
-      {/* Right: Beta badge */}
-      <Badge variant="secondary" className="ml-2 shrink-0 text-xs font-medium">
-        Beta
-      </Badge>
+      {/* Right: theme toggle + Beta badge */}
+      <div className="ml-2 flex shrink-0 items-center gap-2">
+        <ThemeToggle />
+        <Badge variant="secondary" className="text-xs font-medium">
+          Beta
+        </Badge>
+      </div>
 
       {/* Subtle gradient border accent */}
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />

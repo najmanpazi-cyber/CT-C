@@ -7,6 +7,7 @@ import {
   Brain, Copy, FileText, TrendingUp, Shield,
   ChevronDown, ChevronUp, Clock, Zap, Users, DollarSign,
 } from "lucide-react";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 /* ─── SEO meta is set in index.html ─── */
 
@@ -226,13 +227,16 @@ export default function Landing() {
             <a href="#compare" className="hover:text-foreground transition-colors">Compare</a>
             <a href="#pricing" className="hover:text-foreground transition-colors">Pricing</a>
           </nav>
-          <Button
-            onClick={() => navigate("/app")}
-            className="bg-primary text-primary-foreground hover:bg-primary/90"
-            size="sm"
-          >
-            Try Free <ArrowRight className="ml-1.5 h-4 w-4" />
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button
+              onClick={() => navigate("/app")}
+              className="bg-primary text-primary-foreground hover:bg-primary/90"
+              size="sm"
+            >
+              Try Free <ArrowRight className="ml-1.5 h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </header>
 

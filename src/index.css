@@ -76,6 +76,78 @@
     --modifier-foreground: 26 90% 37%;
     --modifier-border: 45 93% 78%;
   }
+
+  .dark {
+    --background: 224 25% 9%;
+    --foreground: 210 20% 95%;
+
+    --card: 224 20% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 224 20% 12%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 217 91% 65%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 220 14% 16%;
+    --secondary-foreground: 210 20% 95%;
+
+    --muted: 220 14% 16%;
+    --muted-foreground: 220 9% 60%;
+
+    --accent: 220 14% 16%;
+    --accent-foreground: 210 20% 95%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 42%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 220 20% 10%;
+
+    --info: 217 50% 16%;
+    --info-foreground: 217 91% 70%;
+    --info-border: 217 40% 22%;
+
+    --border: 220 13% 20%;
+    --input: 220 13% 20%;
+    --ring: 217 91% 65%;
+
+    --sidebar-background: 224 20% 10%;
+    --sidebar-foreground: 210 20% 90%;
+    --sidebar-primary: 210 20% 95%;
+    --sidebar-primary-foreground: 224 20% 10%;
+    --sidebar-accent: 220 14% 16%;
+    --sidebar-accent-foreground: 210 20% 95%;
+    --sidebar-border: 220 13% 20%;
+    --sidebar-ring: 217 91% 65%;
+
+    /* Confidence level tokens */
+    --confidence-high: 142 40% 14%;
+    --confidence-high-foreground: 142 76% 55%;
+    --confidence-high-border: 142 40% 22%;
+
+    --confidence-medium: 38 40% 14%;
+    --confidence-medium-foreground: 38 80% 60%;
+    --confidence-medium-border: 38 40% 22%;
+
+    --confidence-low: 0 40% 14%;
+    --confidence-low-foreground: 0 80% 60%;
+    --confidence-low-border: 0 40% 22%;
+
+    /* Add-on code accent (purple) */
+    --addon: 263 40% 14%;
+    --addon-foreground: 263 70% 65%;
+    --addon-border: 263 40% 22%;
+
+    /* Modifier accent (amber) */
+    --modifier: 38 40% 14%;
+    --modifier-foreground: 26 80% 55%;
+    --modifier-border: 38 40% 22%;
+  }
 }
 
 @layer base {
