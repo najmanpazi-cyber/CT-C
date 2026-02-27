@@ -52,6 +52,29 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Confidence level tokens */
+    --confidence-high: 142 71% 93%;
+    --confidence-high-foreground: 143 64% 24%;
+    --confidence-high-border: 142 69% 86%;
+
+    --confidence-medium: 48 96% 89%;
+    --confidence-medium-foreground: 26 90% 37%;
+    --confidence-medium-border: 45 93% 78%;
+
+    --confidence-low: 0 94% 94%;
+    --confidence-low-foreground: 0 74% 35%;
+    --confidence-low-border: 0 93% 89%;
+
+    /* Add-on code accent (purple) */
+    --addon: 263 70% 96%;
+    --addon-foreground: 263 70% 50%;
+    --addon-border: 263 67% 86%;
+
+    /* Modifier accent (amber) */
+    --modifier: 48 100% 98%;
+    --modifier-foreground: 26 90% 37%;
+    --modifier-border: 45 93% 78%;
   }
 }
 

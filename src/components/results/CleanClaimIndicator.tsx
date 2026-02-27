@@ -9,20 +9,20 @@ const CleanClaimIndicator = ({ ready, missingCount = 0 }: CleanClaimIndicatorPro
   <div
     className={`flex items-center gap-2.5 rounded-lg p-3 ${
       ready
-        ? "bg-[#F0FDF4] border border-[#BBF7D0]"
-        : "bg-[#FEF2F2] border border-[#FECACA]"
+        ? "bg-confidence-high border border-confidence-high-border"
+        : "bg-confidence-low border border-confidence-low-border"
     }`}
   >
     {ready
-      ? <CheckCircle2 className="h-5 w-5 shrink-0 text-[#16A34A]" />
-      : <XCircle className="h-5 w-5 shrink-0 text-[#DC2626]" />
+      ? <CheckCircle2 className="h-5 w-5 shrink-0 text-success" />
+      : <XCircle className="h-5 w-5 shrink-0 text-destructive" />
     }
     <div>
-      <span className={`text-sm font-semibold ${ready ? "text-[#15803D]" : "text-[#991B1B]"}`}>
+      <span className={`text-sm font-semibold ${ready ? "text-confidence-high-foreground" : "text-confidence-low-foreground"}`}>
         {ready ? "Clean Claim Ready" : "Review Required"}
       </span>
       {!ready && missingCount > 0 && (
-        <span className="ml-2 text-xs text-[#DC2626]">
+        <span className="ml-2 text-xs text-destructive">
           {missingCount} documentation gap{missingCount > 1 ? "s" : ""} — see below
         </span>
       )}

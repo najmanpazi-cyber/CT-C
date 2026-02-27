@@ -21,19 +21,19 @@ const ModifierBadges = ({ modifiers }: ModifierBadgesProps) => {
         {modifiers.map((mod, i) => (
           <div
             key={i}
-            className="rounded-lg border border-[#FDE68A] bg-[#FFFBEB] p-3"
+            className="rounded-lg border border-modifier-border bg-modifier p-3"
           >
             <div className="flex items-center gap-2">
-              <span className="font-mono text-sm font-bold text-[#92400E]">
+              <span className="font-mono text-sm font-bold text-modifier-foreground">
                 <ModifierTooltip code={mod.code}>{mod.code}</ModifierTooltip>
               </span>
-              <span className="text-sm font-medium text-[#111827]">{mod.name}</span>
+              <span className="text-sm font-medium text-foreground">{mod.name}</span>
             </div>
-            <p className="mt-1 text-xs leading-relaxed text-[#78350F]">{mod.reason}</p>
+            <p className="mt-1 text-xs leading-relaxed text-modifier-foreground">{mod.reason}</p>
             {mod.payer_note && (
-              <div className="mt-1.5 flex items-start gap-1.5 rounded bg-[#FEF3C7] px-2 py-1.5">
-                <Info className="mt-0.5 h-3 w-3 shrink-0 text-[#D97706]" />
-                <p className="text-xs text-[#92400E]">
+              <div className="mt-1.5 flex items-start gap-1.5 rounded bg-confidence-medium px-2 py-1.5">
+                <Info className="mt-0.5 h-3 w-3 shrink-0 text-warning" />
+                <p className="text-xs text-modifier-foreground">
                   <span className="font-semibold">Payer note:</span> {mod.payer_note}
                 </p>
               </div>

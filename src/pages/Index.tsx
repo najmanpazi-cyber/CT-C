@@ -108,12 +108,17 @@ const Index = () => {
       />
 
       {/* ── Mobile Tab Bar ── */}
-      <div className="flex border-b lg:hidden">
+      <div className="relative flex border-b lg:hidden">
+        {/* Sliding indicator */}
+        <div
+          className="absolute bottom-0 left-0 h-0.5 w-1/2 bg-primary transition-transform duration-300 ease-out"
+          style={{ transform: mobileTab === "results" ? "translateX(100%)" : "translateX(0)" }}
+        />
         <button
           onClick={() => setMobileTab("input")}
           className={`flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
             mobileTab === "input"
-              ? "border-b-2 border-primary text-primary"
+              ? "text-primary"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
@@ -124,14 +129,14 @@ const Index = () => {
           onClick={() => setMobileTab("results")}
           className={`relative flex flex-1 items-center justify-center gap-2 py-3 text-sm font-medium transition-colors ${
             mobileTab === "results"
-              ? "border-b-2 border-primary text-primary"
+              ? "text-primary"
               : "text-muted-foreground hover:text-foreground"
           }`}
         >
           <ClipboardList className="h-4 w-4" />
           Results
           {hasResults && mobileTab !== "results" && (
-            <span className="absolute right-6 top-2.5 h-2 w-2 rounded-full bg-primary" />
+            <span className="absolute right-6 top-2.5 h-2 w-2 rounded-full bg-primary animate-pulse" />
           )}
         </button>
       </div>

@@ -9,17 +9,17 @@ interface PrimaryCodeCardProps {
 }
 
 const confidenceConfig = {
-  high:   { className: "bg-[#DCFCE7] text-[#15803D] border-[#BBF7D0]",   label: "High Confidence" },
-  medium: { className: "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]",   label: "Medium Confidence" },
-  low:    { className: "bg-[#FEE2E2] text-[#991B1B] border-[#FECACA]",   label: "Low Confidence" },
+  high:   { className: "bg-confidence-high text-confidence-high-foreground border-confidence-high-border", label: "High Confidence" },
+  medium: { className: "bg-confidence-medium text-confidence-medium-foreground border-confidence-medium-border", label: "Medium Confidence" },
+  low:    { className: "bg-confidence-low text-confidence-low-foreground border-confidence-low-border", label: "Low Confidence" },
 };
 
 const globalPeriodLabel = (days: number | null | undefined) => {
   if (days === null || days === undefined) return null;
-  if (days === 0)  return { label: "0-day global",  cls: "bg-[#F0FDF4] text-[#15803D] border-[#BBF7D0]" };
-  if (days === 10) return { label: "10-day global", cls: "bg-[#FFFBEB] text-[#92400E] border-[#FDE68A]" };
-  if (days === 90) return { label: "90-day global", cls: "bg-[#FEF2F2] text-[#991B1B] border-[#FECACA]" };
-  return { label: `${days}-day global`, cls: "bg-[#F9FAFB] text-[#6B7280] border-[#E5E7EB]" };
+  if (days === 0)  return { label: "0-day global",  cls: "bg-confidence-high text-confidence-high-foreground border-confidence-high-border" };
+  if (days === 10) return { label: "10-day global", cls: "bg-confidence-medium text-confidence-medium-foreground border-confidence-medium-border" };
+  if (days === 90) return { label: "90-day global", cls: "bg-confidence-low text-confidence-low-foreground border-confidence-low-border" };
+  return { label: `${days}-day global`, cls: "bg-muted text-muted-foreground border-border" };
 };
 
 const PrimaryCodeCard = ({ code, feedbackType, onFeedback }: PrimaryCodeCardProps) => {
@@ -27,21 +27,21 @@ const PrimaryCodeCard = ({ code, feedbackType, onFeedback }: PrimaryCodeCardProp
   const globalInfo = globalPeriodLabel(code.global_period_days);
 
   return (
-    <div className="rounded-lg border border-[#E5E7EB] bg-white p-4 shadow-sm">
+    <div className="rounded-lg border border-primary/20 bg-gradient-to-br from-card to-primary/[0.03] p-5 shadow-md ring-1 ring-primary/10">
       {/* Top row: code + feedback buttons */}
       <div className="flex items-start justify-between gap-2">
         <div className="min-w-0">
-          <p className="font-mono text-3xl font-bold tracking-tight text-[#111827]">
+          <p className="font-mono text-3xl font-bold tracking-tight text-foreground">
             <CptTooltip code={code.cpt_code}>{code.cpt_code}</CptTooltip>
           </p>
-          <p className="mt-1 text-sm leading-snug text-[#6B7280]">{code.description}</p>
+          <p className="mt-1 text-sm leading-snug text-muted-foreground">{code.description}</p>
         </div>
         <div className="flex shrink-0 gap-1 pt-0.5">
           <button
             onClick={() => onFeedback("positive")}
             title="This code looks correct"
-            className={`rounded-md p-1.5 transition-colors hover:bg-[#F0FDF4] ${
-              feedbackType === "positive" ? "text-[#16A34A]" : "text-[#D1D5DB]"
+            className={`rounded-md p-1.5 transition-colors hover:bg-confidence-high ${
+              feedbackType === "positive" ? "text-success" : "text-muted-foreground/40"
             }`}
           >
             <ThumbsUp className="h-4 w-4" />
@@ -49,8 +49,8 @@ const PrimaryCodeCard = ({ code, feedbackType, onFeedback }: PrimaryCodeCardProp
           <button
             onClick={() => onFeedback("negative")}
             title="This code needs correction"
-            className={`rounded-md p-1.5 transition-colors hover:bg-[#FEF2F2] ${
-              feedbackType === "negative" ? "text-[#DC2626]" : "text-[#D1D5DB]"
+            className={`rounded-md p-1.5 transition-colors hover:bg-confidence-low ${
+              feedbackType === "negative" ? "text-destructive" : "text-muted-foreground/40"
             }`}
           >
             <ThumbsDown className="h-4 w-4" />
@@ -75,8 +75,8 @@ const PrimaryCodeCard = ({ code, feedbackType, onFeedback }: PrimaryCodeCardProp
 
         {/* RVU */}
         {code.rvu != null && code.rvu > 0 && (
-          <span className="inline-flex items-center gap-1 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-2.5 py-0.5 text-xs font-medium text-[#374151]">
-            <TrendingUp className="h-3 w-3 text-[#2563EB]" />
+          <span className="inline-flex items-center gap-1 rounded-full border border-border bg-muted px-2.5 py-0.5 text-xs font-medium text-foreground/80">
+            <TrendingUp className="h-3 w-3 text-primary" />
             {code.rvu} wRVU
           </span>
         )}

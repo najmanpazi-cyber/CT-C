@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-  ClipboardList, Loader2, AlertTriangle, ChevronDown, ChevronUp,
+  ClipboardList, AlertTriangle, ChevronDown, ChevronUp,
   Copy, Check, FileText, Stethoscope, ShieldCheck, Download, Printer,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,11 @@ const LOADING_STEPS = [
   { icon: ClipboardList, text: "Evaluating modifiers and payer rules..." },
 ];
 
+// Shimmer skeleton bar component
+const ShimmerBar = ({ className }: { className?: string }) => (
+  <div className={`rounded bg-gradient-to-r from-muted via-muted/50 to-muted bg-[length:200%_100%] animate-shimmer ${className ?? ""}`} />
+);
+
 const ResultsPanel = ({
   result, error, isLoading, onRetry, sessionId, clinicalInputPreview, lastRequest,
 }: ResultsPanelProps) => {
@@ -55,7 +60,7 @@ const ResultsPanel = ({
 
   if (!result && !error && !isLoading) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-muted-foreground">
+      <div className="flex h-full flex-col items-center justify-center gap-3 p-8 text-muted-foreground animate-fade-in-scale">
         <ClipboardList className="h-12 w-12 opacity-30" />
         <div className="text-center">
           <p className="text-sm font-medium">Ready to analyze</p>
@@ -74,20 +79,45 @@ const ResultsPanel = ({
     const step = LOADING_STEPS[loadingStep];
     const StepIcon = step.icon;
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-4 p-8">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="h-10 w-10 animate-spin text-primary opacity-70" />
-          <p className="animate-pulse text-sm text-muted-foreground">{step.text}</p>
+      <div className="flex flex-col gap-4 p-6 animate-fade-in-scale">
+        {/* Skeleton: clean claim indicator */}
+        <ShimmerBar className="h-12 rounded-lg" />
+
+        {/* Skeleton: primary code card */}
+        <div className="rounded-lg border border-border/50 p-5 space-y-3">
+          <ShimmerBar className="h-8 w-32" />
+          <ShimmerBar className="h-4 w-64" />
+          <div className="flex gap-2">
+            <ShimmerBar className="h-6 w-28 rounded-full" />
+            <ShimmerBar className="h-6 w-24 rounded-full" />
+          </div>
         </div>
-        <div className="flex gap-2 mt-2">
-          {LOADING_STEPS.map((_, i) => (
+
+        {/* Skeleton: ICD-10 rows */}
+        <div className="space-y-2">
+          <ShimmerBar className="h-4 w-40" />
+          <ShimmerBar className="h-16 rounded-lg" />
+          <ShimmerBar className="h-16 rounded-lg" />
+        </div>
+
+        {/* Skeleton: modifier */}
+        <div className="space-y-2">
+          <ShimmerBar className="h-4 w-24" />
+          <ShimmerBar className="h-14 rounded-lg" />
+        </div>
+
+        {/* Active step indicator */}
+        <div className="flex flex-col items-center gap-3 pt-4">
+          <div key={loadingStep} className="flex items-center gap-2 text-sm text-muted-foreground animate-fade-in-up">
+            <StepIcon className="h-4 w-4 text-primary" />
+            {step.text}
+          </div>
+          <div className="h-1.5 w-48 rounded-full bg-muted overflow-hidden">
             <div
-              key={i}
-              className={`h-1.5 w-8 rounded-full transition-all duration-500 ${
-                i <= loadingStep ? "bg-primary" : "bg-muted"
-              }`}
+              className="h-full bg-primary rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${((loadingStep + 1) / LOADING_STEPS.length) * 100}%` }}
             />
-          ))}
+          </div>
         </div>
       </div>
     );
@@ -95,7 +125,7 @@ const ResultsPanel = ({
 
   if (error) {
     return (
-      <div className="flex h-full flex-col items-center justify-center gap-4 p-8">
+      <div className="flex h-full flex-col items-center justify-center gap-4 p-8 animate-fade-in-scale">
         <div className="w-full max-w-md rounded-lg border border-destructive/30 bg-destructive/5 p-4">
           <p className="text-sm text-destructive">{error.user_message}</p>
         </div>
@@ -171,42 +201,57 @@ const ResultsPanel = ({
     }
   };
 
+  // Stagger delay helper
+  const stagger = (i: number) => ({ animationDelay: `${i * 80}ms`, animationFillMode: "both" as const });
+
   return (
     <div className="flex flex-col gap-4 overflow-y-auto p-6">
       {/* Clean Claim Indicator */}
-      <CleanClaimIndicator ready={result.clean_claim_ready} missingCount={result.missing_information?.length ?? 0} />
+      <div className="animate-fade-in-up" style={stagger(0)}>
+        <CleanClaimIndicator ready={result.clean_claim_ready} missingCount={result.missing_information?.length ?? 0} />
+      </div>
 
       {/* Primary Code */}
-      <PrimaryCodeCard code={result.primary_code} feedbackType={feedbackType} onFeedback={handleFeedback} />
-      {feedbackSent && feedbackType !== "negative" && (
-        <p className="text-xs text-[#16A34A]">✓ Thank you for your feedback!</p>
-      )}
-      {feedbackType === "negative" && !feedbackSent && (
-        <FeedbackForm
-          suggestedCode={result.primary_code.cpt_code}
-          sessionId={sessionId}
-          clinicalInputPreview={clinicalInputPreview}
-          onSubmitted={() => { setFeedbackSent(true); setFeedbackType(null); }}
-        />
-      )}
+      <div className="animate-fade-in-up" style={stagger(1)}>
+        <PrimaryCodeCard code={result.primary_code} feedbackType={feedbackType} onFeedback={handleFeedback} />
+        {feedbackSent && feedbackType !== "negative" && (
+          <p className="mt-1 text-xs text-success">✓ Thank you for your feedback!</p>
+        )}
+        {feedbackType === "negative" && !feedbackSent && (
+          <FeedbackForm
+            suggestedCode={result.primary_code.cpt_code}
+            sessionId={sessionId}
+            clinicalInputPreview={clinicalInputPreview}
+            onSubmitted={() => { setFeedbackSent(true); setFeedbackType(null); }}
+          />
+        )}
+      </div>
 
-      {/* Add-On Codes — prominently above ICD-10 */}
+      {/* Add-On Codes */}
       {result.add_on_codes?.length > 0 && (
-        <AddOnCodes codes={result.add_on_codes} />
+        <div className="animate-fade-in-up" style={stagger(2)}>
+          <AddOnCodes codes={result.add_on_codes} />
+        </div>
       )}
 
       {/* ICD-10 Diagnosis Codes */}
-      <DiagnosisCodes codes={result.icd10_codes} />
+      <div className="animate-fade-in-up" style={stagger(3)}>
+        <DiagnosisCodes codes={result.icd10_codes} />
+      </div>
 
       {/* Modifiers */}
-      <ModifierBadges modifiers={result.modifiers} />
+      <div className="animate-fade-in-up" style={stagger(4)}>
+        <ModifierBadges modifiers={result.modifiers} />
+      </div>
 
       {/* Rationale */}
-      <RationaleCard rationale={result.rationale} />
+      <div className="animate-fade-in-up" style={stagger(5)}>
+        <RationaleCard rationale={result.rationale} />
+      </div>
 
       {/* Missing Information */}
       {result.missing_information?.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <div className="animate-fade-in-up flex flex-col gap-2" style={stagger(6)}>
           <h3 className="text-sm font-semibold text-destructive">Missing Documentation</h3>
           {result.missing_information.map((info, i) => (
             <div key={i} className="flex items-start gap-2 rounded-lg border-l-4 border-destructive bg-destructive/5 p-3">
@@ -219,12 +264,12 @@ const ResultsPanel = ({
 
       {/* Warnings */}
       {result.warnings?.length > 0 && (
-        <div className="flex flex-col gap-2">
+        <div className="animate-fade-in-up flex flex-col gap-2" style={stagger(6)}>
           {result.warnings.map((w, i) => {
             const colors = {
               error:   "border-destructive bg-destructive/5 text-destructive",
-              warning: "border-[#D97706] bg-[#FFFBEB] text-[#92400E]",
-              info:    "border-[#2563EB] bg-[#EFF6FF] text-[#1E40AF]",
+              warning: "border-warning bg-modifier text-modifier-foreground",
+              info:    "border-primary bg-info text-info-foreground",
             };
             return (
               <div key={i} className={`rounded-lg border-l-4 p-3 ${colors[w.type]}`}>
@@ -235,12 +280,12 @@ const ResultsPanel = ({
         </div>
       )}
 
-      {/* Alternatives — visible by default */}
+      {/* Alternatives */}
       {result.alternatives?.length > 0 && (
-        <div>
+        <div className="animate-fade-in-up" style={stagger(7)}>
           <button
             onClick={() => setAltOpen(o => !o)}
-            className="flex w-full items-center justify-between rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-2.5 text-sm font-medium text-[#374151] hover:bg-[#F3F4F6] transition-colors"
+            className="flex w-full items-center justify-between rounded-lg border border-border bg-muted px-4 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted/80 transition-colors"
           >
             <span>Alternative Codes ({result.alternatives.length})</span>
             {altOpen ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -248,15 +293,15 @@ const ResultsPanel = ({
           {altOpen && (
             <div className="mt-2 flex flex-col gap-2">
               {result.alternatives.map((alt, i) => (
-                <div key={i} className="rounded-lg border border-[#E5E7EB] p-3">
+                <div key={i} className="rounded-lg border border-border p-3">
                   <p className="text-sm font-medium">
-                    <span className="font-mono font-semibold text-[#111827]">
+                    <span className="font-mono font-semibold text-foreground">
                       <CptTooltip code={alt.cpt_code}>{alt.cpt_code}</CptTooltip>
                     </span>
-                    <span className="ml-2 text-[#6B7280]">{alt.description}</span>
+                    <span className="ml-2 text-muted-foreground">{alt.description}</span>
                   </p>
-                  <p className="mt-1 text-xs text-[#6B7280]">
-                    <span className="font-medium text-[#374151]">Consider when:</span> {alt.why_consider}
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    <span className="font-medium text-foreground/80">Consider when:</span> {alt.why_consider}
                   </p>
                 </div>
               ))}
@@ -266,7 +311,7 @@ const ResultsPanel = ({
       )}
 
       {/* Verification + Copy Footer */}
-      <div className="border-t pt-4">
+      <div className="animate-fade-in-up border-t pt-4" style={stagger(8)}>
         <div className="flex items-center gap-2 mb-3">
           <Checkbox id="verify" checked={verified} onCheckedChange={(v) => setVerified(v === true)} />
           <label htmlFor="verify" className="text-sm text-foreground cursor-pointer">
@@ -283,7 +328,7 @@ const ResultsPanel = ({
             className="text-xs"
           >
             {csvExported
-              ? <><Check className="mr-1 h-3 w-3 text-[#16A34A]" /> Exported!</>
+              ? <><Check className="mr-1 h-3 w-3 animate-check-bounce text-success" /> Exported!</>
               : <><Download className="mr-1 h-3 w-3" /> Export CSV</>
             }
           </Button>
@@ -307,7 +352,7 @@ const ResultsPanel = ({
             className="text-xs"
           >
             {copied === "cpt"
-              ? <><Check className="mr-1 h-3 w-3" /> Copied</>
+              ? <><Check className="mr-1 h-3 w-3 animate-check-bounce text-success" /> Copied</>
               : <><Copy className="mr-1 h-3 w-3" /> CPT Only</>
             }
           </Button>
@@ -319,7 +364,7 @@ const ResultsPanel = ({
             className="text-xs"
           >
             {copied === "icd"
-              ? <><Check className="mr-1 h-3 w-3" /> Copied</>
+              ? <><Check className="mr-1 h-3 w-3 animate-check-bounce text-success" /> Copied</>
               : <><Copy className="mr-1 h-3 w-3" /> ICD-10 Only</>
             }
           </Button>
@@ -327,10 +372,10 @@ const ResultsPanel = ({
             onClick={() => handleCopy("all")}
             disabled={!verified}
             size="sm"
-            className="text-xs bg-[#2563EB] text-white hover:bg-[#1d4ed8]"
+            className="text-xs bg-primary text-primary-foreground hover:bg-primary/90"
           >
             {copied === "all"
-              ? <><Check className="mr-1 h-3 w-3" /> Copied</>
+              ? <><Check className="mr-1 h-3 w-3 animate-check-bounce" /> Copied</>
               : <><Copy className="mr-1 h-3 w-3" /> Copy All</>
             }
           </Button>

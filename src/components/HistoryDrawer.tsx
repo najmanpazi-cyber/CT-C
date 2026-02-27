@@ -1,5 +1,4 @@
-import { History, Trash2, ChevronRight, Clock, TrendingUp, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { History, Trash2, ChevronRight, TrendingUp } from "lucide-react";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import type { HistoryEntry } from "@/hooks/useSessionHistory";
 
@@ -23,9 +22,9 @@ function truncate(str: string, n: number) {
 }
 
 const confidenceColors = {
-  high:   "bg-[#DCFCE7] text-[#15803D]",
-  medium: "bg-[#FEF3C7] text-[#92400E]",
-  low:    "bg-[#FEE2E2] text-[#991B1B]",
+  high:   "bg-confidence-high text-confidence-high-foreground",
+  medium: "bg-confidence-medium text-confidence-medium-foreground",
+  low:    "bg-confidence-low text-confidence-low-foreground",
 };
 
 const HistoryDrawer = ({ history, onSelect, onClear }: HistoryDrawerProps) => {
@@ -86,11 +85,6 @@ const HistoryDrawer = ({ history, onSelect, onClear }: HistoryDrawerProps) => {
 
                 return (
                   <li key={entry.id}>
-                    <Sheet>
-                      <SheetTrigger asChild>
-                        {/* Use the outer Sheet's close via onSelect */}
-                      </SheetTrigger>
-                    </Sheet>
                     <button
                       onClick={() => onSelect(entry)}
                       className="group flex w-full flex-col gap-2 px-4 py-3.5 text-left transition-colors hover:bg-secondary/60"
@@ -119,36 +113,36 @@ const HistoryDrawer = ({ history, onSelect, onClear }: HistoryDrawerProps) => {
 
                         {/* ICD-10 primary */}
                         {icdPrimary && (
-                          <span className="rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-2 py-0.5 text-[10px] font-medium text-[#374151]">
+                          <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-medium text-foreground/80">
                             {icdPrimary}
                           </span>
                         )}
 
                         {/* Add-ons */}
                         {result.add_on_codes?.length > 0 && (
-                          <span className="rounded-full border border-[#BFDBFE] bg-[#EFF6FF] px-2 py-0.5 text-[10px] font-medium text-[#1D4ED8]">
+                          <span className="rounded-full border border-info-border bg-info px-2 py-0.5 text-[10px] font-medium text-primary">
                             +{result.add_on_codes.length} add-on
                           </span>
                         )}
 
                         {/* RVU */}
                         {result.primary_code.rvu != null && result.primary_code.rvu > 0 && (
-                          <span className="flex items-center gap-0.5 rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-2 py-0.5 text-[10px] font-medium text-[#374151]">
-                            <TrendingUp className="h-2.5 w-2.5 text-[#2563EB]" />
+                          <span className="flex items-center gap-0.5 rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] font-medium text-foreground/80">
+                            <TrendingUp className="h-2.5 w-2.5 text-primary" />
                             {result.primary_code.rvu} RVU
                           </span>
                         )}
 
                         {/* Setting */}
                         {request.setting && request.setting !== "Office/Outpatient" && (
-                          <span className="rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-2 py-0.5 text-[10px] text-[#6B7280]">
+                          <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
                             {request.setting}
                           </span>
                         )}
 
                         {/* Payer */}
                         {request.payer_type && request.payer_type !== "Not specified" && (
-                          <span className="rounded-full border border-[#E5E7EB] bg-[#F9FAFB] px-2 py-0.5 text-[10px] text-[#6B7280]">
+                          <span className="rounded-full border border-border bg-muted px-2 py-0.5 text-[10px] text-muted-foreground">
                             {request.payer_type}
                           </span>
                         )}
