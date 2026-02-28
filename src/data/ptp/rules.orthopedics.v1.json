@@ -1,0 +1,154 @@
+[
+  {
+    "column1_code": "27447",
+    "column2_code": "29881",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "knee",
+    "description": "Knee arthroscopic meniscectomy bundled into TKA"
+  },
+  {
+    "column1_code": "23412",
+    "column2_code": "29805",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "shoulder",
+    "description": "Shoulder diagnostic arthroscopy bundled into open rotator cuff repair"
+  },
+  {
+    "column1_code": "27130",
+    "column2_code": "29860",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "hip",
+    "description": "Hip diagnostic arthroscopy bundled into THA"
+  },
+  {
+    "column1_code": "27650",
+    "column2_code": "29894",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "ankle",
+    "description": "Ankle arthroscopic loose body removal bundled into open Achilles repair"
+  },
+  {
+    "column1_code": "27405",
+    "column2_code": "29881",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "knee",
+    "description": "Knee arthroscopic meniscectomy bundled into open collateral ligament repair"
+  },
+  {
+    "column1_code": "27331",
+    "column2_code": "29874",
+    "rule_id": "R-3.1.1",
+    "category": "arthroscopy_open_bundling",
+    "joint_category": "knee",
+    "description": "Knee arthroscopic loose body removal bundled into open arthrotomy with synovectomy"
+  },
+  {
+    "column1_code": "29877",
+    "column2_code": "20610",
+    "rule_id": "R-3.1.2",
+    "category": "injection_arthroscopy_bundling",
+    "joint_category": "knee",
+    "description": "Knee injection bundled into knee arthroscopic debridement"
+  },
+  {
+    "column1_code": "29826",
+    "column2_code": "20610",
+    "rule_id": "R-3.1.2",
+    "category": "injection_arthroscopy_bundling",
+    "joint_category": "shoulder",
+    "description": "Shoulder injection bundled into shoulder arthroscopic acromioplasty"
+  },
+  {
+    "column1_code": "29862",
+    "column2_code": "20610",
+    "rule_id": "R-3.1.2",
+    "category": "injection_arthroscopy_bundling",
+    "joint_category": "hip",
+    "description": "Hip injection bundled into hip arthroscopic chondroplasty"
+  },
+  {
+    "column1_code": "29895",
+    "column2_code": "20605",
+    "rule_id": "R-3.1.2",
+    "category": "injection_arthroscopy_bundling",
+    "joint_category": "ankle",
+    "description": "Ankle injection bundled into ankle arthroscopic synovectomy"
+  },
+  {
+    "column1_code": "27752",
+    "column2_code": "29515",
+    "rule_id": "R-3.1.3",
+    "category": "cast_fracture_bundling",
+    "joint_category": "lower_leg",
+    "description": "Short leg splint bundled into tibial shaft fracture closed reduction"
+  },
+  {
+    "column1_code": "25607",
+    "column2_code": "29505",
+    "rule_id": "R-3.1.3",
+    "category": "cast_fracture_bundling",
+    "joint_category": "wrist_forearm",
+    "description": "Long leg splint bundled into distal radial fracture open treatment"
+  },
+  {
+    "column1_code": "27759",
+    "column2_code": "29505",
+    "rule_id": "R-3.1.3",
+    "category": "cast_fracture_bundling",
+    "joint_category": "lower_leg",
+    "description": "Long leg splint bundled into tibial shaft fracture IM nail"
+  },
+  {
+    "column1_code": "25600",
+    "column2_code": "29540",
+    "rule_id": "R-3.1.3",
+    "category": "cast_fracture_bundling",
+    "joint_category": "wrist_forearm",
+    "description": "Ankle/foot strapping bundled into distal radial fracture closed treatment"
+  },
+  {
+    "column1_code": "29881",
+    "column2_code": "29870",
+    "rule_id": "R-3.1.4",
+    "category": "diagnostic_surgical_scope",
+    "joint_category": "knee",
+    "description": "Knee diagnostic arthroscopy bundled into surgical meniscectomy"
+  },
+  {
+    "column1_code": "29827",
+    "column2_code": "29805",
+    "rule_id": "R-3.1.4",
+    "category": "diagnostic_surgical_scope",
+    "joint_category": "shoulder",
+    "description": "Shoulder diagnostic arthroscopy bundled into surgical rotator cuff repair"
+  },
+  {
+    "column1_code": "29862",
+    "column2_code": "29860",
+    "rule_id": "R-3.1.4",
+    "category": "diagnostic_surgical_scope",
+    "joint_category": "hip",
+    "description": "Hip diagnostic arthroscopy bundled into surgical chondroplasty"
+  },
+  {
+    "column1_code": "29882",
+    "column2_code": "29870",
+    "rule_id": "R-3.1.4",
+    "category": "diagnostic_surgical_scope",
+    "joint_category": "knee",
+    "description": "Knee diagnostic arthroscopy bundled into surgical meniscus repair"
+  },
+  {
+    "column1_code": "29823",
+    "column2_code": "29805",
+    "rule_id": "R-3.1.4",
+    "category": "diagnostic_surgical_scope",
+    "joint_category": "shoulder",
+    "description": "Shoulder diagnostic arthroscopy bundled into surgical extensive debridement"
+  }
+]
