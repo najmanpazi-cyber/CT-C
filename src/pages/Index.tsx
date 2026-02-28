@@ -5,6 +5,7 @@ import ResultsPanel from "@/components/ResultsPanel";
 import HistoryDrawer from "@/components/HistoryDrawer";
 import type { CodingRequest, CodingResult, CodingError } from "@/types/coding";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 import { FileText, ClipboardList } from "lucide-react";
 import { useSessionHistory } from "@/hooks/useSessionHistory";
 import type { HistoryEntry } from "@/hooks/useSessionHistory";
@@ -67,6 +68,7 @@ const Index = () => {
         }
       }
     } catch (err: any) {
+      logger.error("API call failed", { error: err?.message });
       setError({
         error: true,
         error_code: "NETWORK_ERROR",

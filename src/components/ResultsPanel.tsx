@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import type { CodingResult, CodingError } from "@/types/coding";
 import { supabase } from "@/integrations/supabase/client";
 
+import { logger } from "@/lib/logger";
 import CleanClaimIndicator from "@/components/results/CleanClaimIndicator";
 import { CptTooltip } from "@/components/CptTooltip";
 import { downloadCsv, openPrintView } from "@/utils/exportUtils";
@@ -195,7 +196,7 @@ const ResultsPanel = ({
           feedback_type: "positive",
           session_id: sessionId,
         });
-      } catch (err) { console.error("Feedback insert failed:", err); }
+      } catch (err) { logger.error("Feedback insert failed", { code: result.primary_code.cpt_code, err }); }
       setFeedbackSent(true);
       setTimeout(() => setFeedbackSent(false), 2000);
     }

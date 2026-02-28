@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from "@/lib/logger";
 
 interface FeedbackFormProps {
   suggestedCode: string;
@@ -26,7 +27,7 @@ const FeedbackForm = ({ suggestedCode, sessionId, clinicalInputPreview, onSubmit
         session_id: sessionId,
       });
     } catch (err) {
-      console.error("Feedback insert failed:", err);
+      logger.error("Feedback insert failed", { code: suggestedCode, err });
     }
     setCorrectCode("");
     setAdditionalFeedback("");
