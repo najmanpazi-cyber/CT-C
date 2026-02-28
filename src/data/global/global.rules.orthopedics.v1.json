@@ -1,0 +1,42 @@
+[
+  {
+    "rule_id": "R-3.4.1",
+    "action": "block",
+    "description": "E/M during active 90-day global without modifier -24/-25/-79",
+    "trigger_global_status": ["active_90"],
+    "trigger_code_type": "em",
+    "sufficient_modifiers": ["24", "25", "79"],
+    "payer_note": "E/M visits during a 90-day global period are included in the surgical package unless documented as unrelated (-24) or separately identifiable (-25).",
+    "missing_info_keys": ["modifier_24_or_25_on_em"]
+  },
+  {
+    "rule_id": "R-3.4.2",
+    "action": "force-review",
+    "description": "Same-day E/M + 0-day procedure without modifier -25",
+    "trigger_global_status": ["none", "active_0", "active_10", "active_90"],
+    "trigger_code_type": "em_plus_procedure",
+    "sufficient_modifiers": ["25"],
+    "payer_note": "Same-day E/M with procedure requires -25 if separately identifiable. Document distinct E/M service.",
+    "missing_info_keys": ["modifier_25_on_em", "em_separately_identifiable_documentation"]
+  },
+  {
+    "rule_id": "R-3.4.3",
+    "action": "force-review",
+    "description": "Decision-for-surgery E/M without modifier -57",
+    "trigger_global_status": ["none", "active_0", "active_10", "active_90"],
+    "trigger_code_type": "em_plus_major_surgery",
+    "sufficient_modifiers": ["57"],
+    "payer_note": "E/M representing decision for major surgery requires -57. Day-before acceptance varies by MAC/payer.",
+    "missing_info_keys": ["modifier_57_on_em", "decision_for_surgery_documentation"]
+  },
+  {
+    "rule_id": "R-3.4.4",
+    "action": "block",
+    "description": "Procedure during active global period without modifier -58/-78/-79",
+    "trigger_global_status": ["active_10", "active_90"],
+    "trigger_code_type": "procedure",
+    "sufficient_modifiers": ["58", "78", "79"],
+    "payer_note": "Procedures during a global period require modifier to indicate relationship: -58 (staged), -78 (return to OR), or -79 (unrelated).",
+    "missing_info_keys": ["modifier_58_78_or_79_on_procedure"]
+  }
+]
