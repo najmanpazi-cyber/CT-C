@@ -1,0 +1,35 @@
+[
+  {
+    "rule_id": "R-3.3.1",
+    "trigger_payer": ["medicare"],
+    "trigger_modifier": ["59"],
+    "action": "force-review",
+    "description": "Medicare -59 requires conversion to specific X-modifier",
+    "payer_note": "CMS requires X-modifier specificity. -59 alone may be denied or audited.",
+    "x_modifier_mapping": {
+      "XP": { "evidence_field": "distinct_practitioner_documented", "priority": 1 },
+      "XE": { "evidence_field": "distinct_encounter_documented", "priority": 2 },
+      "XS": { "evidence_field": "distinct_site_documented", "priority": 3 },
+      "XU": { "evidence_field": "non_overlapping_service_documented", "priority": 4 }
+    }
+  },
+  {
+    "rule_id": "R-3.3.2",
+    "trigger_payer": ["medicare", "commercial", "unknown"],
+    "trigger_modifier": ["59", "XE", "XS", "XP", "XU"],
+    "action": "block",
+    "description": "59/X modifier present without sufficient documentation of distinctness",
+    "payer_note": null,
+    "missing_info_keys": ["documentation_of_distinct_service", "anatomic_site_distinction", "separate_encounter_evidence"],
+    "x_modifier_mapping": null
+  },
+  {
+    "rule_id": "R-3.3.3",
+    "trigger_payer": ["commercial", "unknown"],
+    "trigger_modifier": ["59"],
+    "action": "warn",
+    "description": "Commercial -59 is accepted but X-modifier specificity recommended",
+    "payer_note": "Most commercial payers accept -59. Consider using specific X-modifier for audit protection.",
+    "x_modifier_mapping": null
+  }
+]
