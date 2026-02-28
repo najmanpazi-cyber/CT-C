@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://claive.ai/schemas/codingOutput.schema.json",
+  "title": "DeterministicCodingOutput",
+  "description": "Complete output contract for the Claive deterministic rule engine (ACC-03).",
+  "type": "object",
+  "required": [
+    "suggested_codes",
+    "suppressed_codes",
+    "modifiers",
+    "diagnoses",
+    "missing_information",
+    "warnings",
+    "force_review_items",
+    "force_review_pending",
+    "clean_claim_ready",
+    "confidence",
+    "rule_evaluations",
+    "payer_context_applied",
+    "version_metadata"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "suggested_codes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/SuggestedCode" },
+      "description": "CPT codes recommended for billing."
+    },
+    "suppressed_codes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/SuppressedCode" },
+      "description": "CPT codes removed by deterministic rules."
+    },
+    "modifiers": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ModifierEntry" },
+      "description": "Modifiers applied or recommended."
+    },
+    "diagnoses": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DiagnosisEntry" },
+      "description": "ICD-10 diagnosis codes."
+    },
+    "missing_information": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "User-facing prompts for documentation gaps."
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/DeterministicWarning" },
+      "description": "Non-blocking warnings and informational notes."
+    },
+    "force_review_items": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/ForceReviewItem" },
+      "description": "Items requiring explicit user review before submission."
+    },
+    "force_review_pending": {
+      "type": "boolean",
+      "description": "True if any force_review_items are unresolved."
+    },
+    "clean_claim_ready": {
+      "type": "boolean",
+      "description": "True only when no block rules fired and no unresolved force-review items."
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"],
+      "description": "Overall confidence level after rule evaluation."
+    },
+    "rule_evaluations": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/RuleEvaluation" },
+      "description": "Per-rule evaluation results."
+    },
+    "payer_context_applied": {
+      "$ref": "#/$defs/PayerContextApplied",
+      "description": "Payer context used during rule evaluation."
+    },
+    "version_metadata": {
+      "$ref": "#/$defs/VersionMetadata",
+      "description": "Edition anchors and schema version information."
+    }
+  },
+  "$defs": {
+    "RuleId": {
+      "type": "string",
+      "enum": [
+        "R-3.1.1", "R-3.1.2", "R-3.1.3", "R-3.1.4",
+        "R-3.2.1", "R-3.2.2",
+        "R-3.3.1", "R-3.3.2", "R-3.3.3",
+        "R-3.4.1", "R-3.4.2", "R-3.4.3", "R-3.4.4",
+        "R-3.5.1", "R-3.5.2", "R-3.5.3", "R-3.5.4", "R-3.5.5"
+      ]
+    },
+    "SuggestedCode": {
+      "type": "object",
+      "required": ["cpt_code", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "cpt_code": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "SuppressedCode": {
+      "type": "object",
+      "required": ["cpt_code", "description", "suppressed_by_rule", "reason"],
+      "additionalProperties": false,
+      "properties": {
+        "cpt_code": { "type": "string" },
+        "description": { "type": "string" },
+        "suppressed_by_rule": { "$ref": "#/$defs/RuleId" },
+        "reason": { "type": "string" }
+      }
+    },
+    "ModifierEntry": {
+      "type": "object",
+      "required": ["code", "description", "applied_by_rule"],
+      "additionalProperties": false,
+      "properties": {
+        "code": { "type": "string" },
+        "description": { "type": "string" },
+        "applied_by_rule": {
+          "oneOf": [
+            { "$ref": "#/$defs/RuleId" },
+            { "type": "null" }
+          ]
+        }
+      }
+    },
+    "DiagnosisEntry": {
+      "type": "object",
+      "required": ["icd10_code", "description"],
+      "additionalProperties": false,
+      "properties": {
+        "icd10_code": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "DeterministicWarning": {
+      "type": "object",
+      "required": ["type", "rule_id", "message", "code_context"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["warning", "info"]
+        },
+        "rule_id": { "type": "string" },
+        "message": { "type": "string" },
+        "code_context": {
+          "type": ["string", "null"]
+        }
+      }
+    },
+    "ForceReviewItem": {
+      "type": "object",
+      "required": ["rule_id", "message", "code_context", "resolved"],
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": { "$ref": "#/$defs/RuleId" },
+        "message": { "type": "string" },
+        "code_context": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "resolved": { "type": "boolean" }
+      }
+    },
+    "RuleEvaluation": {
+      "type": "object",
+      "required": [
+        "rule_id", "domain", "action_type", "severity", "trigger_matched",
+        "message_user", "message_internal", "evidence_fields", "missing_info_keys",
+        "payer_note", "suppressed_code", "payer_context", "policy_anchor"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "rule_id": { "$ref": "#/$defs/RuleId" },
+        "domain": {
+          "type": "string",
+          "enum": ["PTP", "MUE", "MODIFIER", "GLOBAL", "DOC_SUFFICIENCY"]
+        },
+        "action_type": {
+          "type": "string",
+          "enum": ["block", "force-review", "warn"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["Critical", "High", "Medium", "Low"]
+        },
+        "trigger_matched": { "type": "boolean" },
+        "message_user": { "type": "string" },
+        "message_internal": { "type": "string" },
+        "evidence_fields": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "missing_info_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "payer_note": { "type": ["string", "null"] },
+        "suppressed_code": { "type": ["string", "null"] },
+        "payer_context": { "type": ["string", "null"] },
+        "policy_anchor": { "type": ["string", "null"] }
+      }
+    },
+    "PayerContextApplied": {
+      "type": "object",
+      "required": ["payer_type", "safe_defaults_used"],
+      "additionalProperties": false,
+      "properties": {
+        "payer_type": {
+          "type": "string",
+          "enum": ["commercial", "medicare", "unknown"]
+        },
+        "safe_defaults_used": { "type": "boolean" }
+      }
+    },
+    "VersionMetadata": {
+      "type": "object",
+      "required": [
+        "ncci_ptp_edition", "mue_edition", "cpt_edition",
+        "icd10_edition", "ruleset_version", "schema_version", "generated_at"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "ncci_ptp_edition": { "type": "string" },
+        "mue_edition": { "type": "string" },
+        "cpt_edition": { "type": "string" },
+        "icd10_edition": { "type": "string" },
+        "ruleset_version": { "type": "string" },
+        "schema_version": { "type": "string" },
+        "generated_at": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}
