@@ -1,6 +1,7 @@
 // ACC-04: NCCI PTP Conflict Validator
 // Deterministic, stateless validator for PTP (Procedure-to-Procedure) bundling rules.
 // Covers ACC-01 rules R-3.1.1 through R-3.1.4.
+// BETA SCOPE: Orthopedics v1 only. Do not expand specialty scope without explicit ACC approval.
 
 import type {
   RuleId,
@@ -195,7 +196,8 @@ function getCptDescription(code: string): string {
 
 function buildTriggeredEvaluation(
   ruleId: RuleId,
-  conflicts: PtpConflict[]
+  conflicts: PtpConflict[],
+  payerType: "commercial" | "medicare" | "unknown"
 ): RuleEvaluation {
   const desc = RULE_DESCRIPTIONS[ruleId];
   const evidenceFields: string[] = [];
@@ -221,7 +223,7 @@ function buildTriggeredEvaluation(
     missing_info_keys: [],
     payer_note: null,
     suppressed_code: suppressedCode,
-    payer_context: null,
+    payer_context: `Payer: ${payerType}`,
     policy_anchor: POLICY_ANCHOR,
   };
 }
@@ -267,7 +269,7 @@ export function validatePtp(input: PtpValidatorInput): PtpValidationResult {
   for (const ruleId of PTP_RULE_IDS) {
     const ruleConflicts = conflictsByRule[ruleId];
     if (ruleConflicts && ruleConflicts.length > 0) {
-      const evaluation = buildTriggeredEvaluation(ruleId, ruleConflicts);
+      const evaluation = buildTriggeredEvaluation(ruleId, ruleConflicts, input.payer_type);
       ruleEvaluations.push(evaluation);
 
       if (RULE_ACTION_MAP[ruleId] === "block") {

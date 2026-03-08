@@ -2,6 +2,7 @@
 // Deterministic, stateless validator for global period rules.
 // Covers ACC-01 rules R-3.4.1 (block), R-3.4.2 (force-review),
 // R-3.4.3 (force-review), R-3.4.4 (block).
+// BETA SCOPE: Orthopedics v1 only. Do not expand specialty scope without explicit ACC approval.
 
 import type {
   RuleId,
@@ -233,7 +234,8 @@ function buildTriggeredEvaluation(
   ruleId: RuleId,
   evidenceFields: string[],
   missingInfoKeys: string[],
-  payerNote: string | null
+  payerNote: string | null,
+  payerType: "commercial" | "medicare" | "unknown"
 ): RuleEvaluation {
   const desc = RULE_DESCRIPTIONS[ruleId];
   return {
@@ -248,7 +250,7 @@ function buildTriggeredEvaluation(
     missing_info_keys: missingInfoKeys,
     payer_note: payerNote,
     suppressed_code: null,
-    payer_context: null,
+    payer_context: `Payer: ${payerType}`,
     policy_anchor: POLICY_ANCHOR,
   };
 }
@@ -407,15 +409,19 @@ export function validateGlobal(input: GlobalValidatorInput): GlobalValidationRes
   if (emCodes.length > 0 && majorSurgeryCodes.length > 0) {
     for (const emCode of emCodes) {
       if (codeHasAnyModifier(emCode, ruleConfig343.sufficient_modifiers, input)) continue;
-      if (input.decision_for_surgery_documented) continue;
 
       trigger343 = true;
       evidence343.push(`E/M ${emCode} same day as major surgery: ${majorSurgeryCodes.join(", ")}`);
       evidence343.push(`decision_for_surgery_documented: ${input.decision_for_surgery_documented}`);
 
+      // Message varies based on whether decision documentation exists
+      const msg343 = input.decision_for_surgery_documented
+        ? `E/M code ${emCode} billed with major surgery ${majorSurgeryCodes[0]}. Decision for surgery is documented but modifier -57 is missing. Add -57 before submission.`
+        : `E/M code ${emCode} billed with major surgery ${majorSurgeryCodes[0]}. If E/M represents decision for surgery, modifier -57 is required.`;
+
       forceReviewItems.push({
         rule_id: "R-3.4.3",
-        message: `E/M code ${emCode} billed with major surgery ${majorSurgeryCodes[0]}. If E/M represents decision for surgery, modifier -57 is required.`,
+        message: msg343,
         code_context: [emCode, majorSurgeryCodes[0]],
         resolved: false,
       });
@@ -497,25 +503,25 @@ export function validateGlobal(input: GlobalValidatorInput): GlobalValidationRes
   const ruleEvaluations: RuleEvaluation[] = [];
 
   if (trigger341) {
-    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.1", evidence341, ruleConfig341.missing_info_keys, ruleConfig341.payer_note));
+    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.1", evidence341, ruleConfig341.missing_info_keys, ruleConfig341.payer_note, input.payer_type));
   } else {
     ruleEvaluations.push(buildPassEvaluation("R-3.4.1"));
   }
 
   if (trigger342) {
-    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.2", evidence342, ruleConfig342.missing_info_keys, ruleConfig342.payer_note));
+    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.2", evidence342, ruleConfig342.missing_info_keys, ruleConfig342.payer_note, input.payer_type));
   } else {
     ruleEvaluations.push(buildPassEvaluation("R-3.4.2"));
   }
 
   if (trigger343) {
-    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.3", evidence343, ruleConfig343.missing_info_keys, ruleConfig343.payer_note));
+    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.3", evidence343, ruleConfig343.missing_info_keys, ruleConfig343.payer_note, input.payer_type));
   } else {
     ruleEvaluations.push(buildPassEvaluation("R-3.4.3"));
   }
 
   if (trigger344) {
-    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.4", evidence344, ruleConfig344.missing_info_keys, ruleConfig344.payer_note));
+    ruleEvaluations.push(buildTriggeredEvaluation("R-3.4.4", evidence344, ruleConfig344.missing_info_keys, ruleConfig344.payer_note, input.payer_type));
   } else {
     ruleEvaluations.push(buildPassEvaluation("R-3.4.4"));
   }

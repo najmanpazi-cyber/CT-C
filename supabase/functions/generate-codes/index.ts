@@ -102,6 +102,7 @@ SELF-VALIDATION CHECKLIST (run through ALL checks before finalizing):
 - Global period: billing conflicts flagged?
 - ICD-10 sequencing: primary reason coded first?
 - Outpatient rule: no rule-out diagnoses in outpatient settings?
+- Rationale quality: does rationale cite specific documentation, name payer context, and state bundling status?
 
 CONFIDENCE SCORING:
 - "high": Documentation clearly supports this code with no ambiguity
@@ -333,7 +334,7 @@ Respond with ONLY this JSON structure:
       "payer_note": "Any payer-specific note about this modifier (e.g., Medicare prefers -XS over -59)"
     }
   ],
-  "rationale": "2-4 sentence explanation of coding logic including payer-specific considerations, confidence reasoning, any bundling considerations, and key documentation elements that drove the code selection.",
+  "rationale": "3-5 sentence structured explanation. Sentence 1: cite the specific documentation element(s) that drove code selection (e.g., 'Documentation states total knee arthroplasty performed on right knee'). Sentence 2: explain payer-specific considerations applied (e.g., 'Medicare requires X-modifier over -59; commercial accepts -59'). Sentence 3: note any bundling/conflict checks performed (e.g., 'No NCCI PTP conflicts identified between submitted codes'). Sentence 4: state confidence basis (e.g., 'High confidence — procedure, laterality, and medical necessity are clearly documented'). Sentence 5 (optional): note any documentation gaps or coder action items.",
   "missing_information": ["Item missing from documentation that affects accuracy"],
   "warnings": [
     {
@@ -356,7 +357,7 @@ RULES:
 - Set clean_claim_ready to false if any missing_information items exist
 - Include at least one warning if confidence is medium or low
 - Surface add_on_codes separately — do NOT bury them in alternatives
-- The rationale must reference specific documentation elements AND payer context when known
+- The rationale MUST follow the structured format: (1) documentation citation, (2) payer context, (3) bundling check, (4) confidence basis. Do not give generic rationale — every sentence must reference specific data from the clinical input or coding context
 - Apply Medicare modifier rules when payer_type is Medicare (prefer XE/XS/XP/XU over -59)
 - Never code rule-out diagnoses in outpatient settings`;
 }

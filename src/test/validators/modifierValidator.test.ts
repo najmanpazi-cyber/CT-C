@@ -309,8 +309,9 @@ describe("Modifier 59/X Validator — ACC-06", () => {
     const fullOutput = buildTestCodingOutput(modResult, { payer_type: "medicare" });
 
     // Verify force-review semantics are correct
+    // ACC-01 §3.0: force-review leaves clean_claim_ready unchanged (true)
     expect(fullOutput.force_review_pending).toBe(true);
-    expect(fullOutput.clean_claim_ready).toBe(false);
+    expect(fullOutput.clean_claim_ready).toBe(true);
     expect(fullOutput.confidence).toBe("medium");
 
     const validation = validateCodingOutput(fullOutput);

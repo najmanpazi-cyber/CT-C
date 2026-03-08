@@ -8,11 +8,8 @@ import type {
   RuleEvaluation,
   RuleId,
 } from "@/types/ruleEngine";
-import {
-  ALL_RULE_IDS,
-  RULE_DOMAIN_MAP,
-  RULE_ACTION_MAP,
-} from "@/utils/validateRuleEvaluation";
+import { ALL_RULE_IDS } from "@/utils/validateRuleEvaluation";
+import { buildVersionMetadata, buildDefaultEvaluation } from "@/utils/versionMetadata";
 import {
   validateDocumentation,
   type DocumentationValidatorInput,
@@ -30,24 +27,6 @@ export function applyDocumentationValidation(input: DocumentationValidatorInput)
 // ---------------------------------------------------------------------------
 // Test utility: build a full DeterministicCodingOutput from doc results
 // ---------------------------------------------------------------------------
-
-function buildDefaultEvaluation(ruleId: RuleId): RuleEvaluation {
-  return {
-    rule_id: ruleId,
-    domain: RULE_DOMAIN_MAP[ruleId],
-    action_type: RULE_ACTION_MAP[ruleId],
-    severity: "Low",
-    trigger_matched: false,
-    message_user: "",
-    message_internal: "",
-    evidence_fields: [],
-    missing_info_keys: [],
-    payer_note: null,
-    suppressed_code: null,
-    payer_context: null,
-    policy_anchor: null,
-  };
-}
 
 export interface TestOutputOverrides {
   suggested_codes?: DeterministicCodingOutput["suggested_codes"];
@@ -96,14 +75,6 @@ export function buildTestCodingOutput(
       payer_type: overrides.payer_type ?? "commercial",
       safe_defaults_used: false,
     },
-    version_metadata: {
-      ncci_ptp_edition: "Q1 2026",
-      mue_edition: "Q1 2026",
-      cpt_edition: "2026",
-      icd10_edition: "FY2026",
-      ruleset_version: "orthopedics-v1-beta",
-      schema_version: "1.0.0",
-      generated_at: new Date().toISOString(),
-    },
+    version_metadata: buildVersionMetadata(),
   };
 }

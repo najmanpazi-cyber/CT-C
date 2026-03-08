@@ -157,14 +157,9 @@ function semanticChecks(data: ParsedOutput): {
     });
   }
 
-  // 5. force_review_pending: true → clean_claim_ready must be false
-  if (data.force_review_pending && data.clean_claim_ready) {
-    errors.push({
-      path: "clean_claim_ready",
-      code: "SEMANTIC_PENDING_REVIEW_CLEAN_CONTRADICTION",
-      message: "force_review_pending is true but clean_claim_ready is true. Pending reviews must block clean claim.",
-    });
-  }
+  // 5. ACC-01 §3.0: force-review leaves clean_claim_ready unchanged.
+  //    force_review_pending is a UI-level flag; it does NOT gate claim submission readiness.
+  //    Only block rules set clean_claim_ready to false (covered by check #1 above).
 
   // 6. suppressed_codes[].suppressed_by_rule must reference a triggered rule
   for (let i = 0; i < data.suppressed_codes.length; i++) {

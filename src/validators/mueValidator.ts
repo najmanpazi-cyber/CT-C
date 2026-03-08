@@ -1,6 +1,7 @@
 // ACC-05: MUE Unit Limit Validator
 // Deterministic, stateless validator for MUE (Medically Unlikely Edits) rules.
 // Covers ACC-01 rules R-3.2.1 (block) and R-3.2.2 (warn).
+// BETA SCOPE: Orthopedics v1 only. Do not expand specialty scope without explicit ACC approval.
 
 import type {
   RuleId,
@@ -79,10 +80,23 @@ const RULE_DESCRIPTIONS: Record<string, { user: string; internal: string }> = {
 
 const POLICY_ANCHOR = "CMS MUE Values Q1 2026";
 
-const PAYER_NOTES: Record<string, string> = {
-  medicare: "Medicare auto-adjudicates MUE violations. Units exceeding MUE will be denied automatically.",
-  commercial: "Conservative MUE limit applied. Some commercial payers allow override with documentation. Review payer-specific policy.",
-  unknown: "Conservative MUE limit applied. Some commercial payers allow override with documentation. Review payer-specific policy.",
+const PAYER_NOTES: Record<string, Record<string, string>> = {
+  "R-3.2.1": {
+    medicare: "Medicare auto-adjudicates MUE violations. Units exceeding MUE will be denied automatically.",
+    commercial: "Conservative MUE limit applied. Some commercial payers allow override with documentation. Review payer-specific policy.",
+    unknown: "Conservative MUE limit applied. Some commercial payers allow override with documentation. Review payer-specific policy.",
+  },
+  "R-3.2.2": {
+    medicare: "Medicare MUE is a hard cap. Additional units beyond the current count will be auto-denied.",
+    commercial: "At MUE threshold. Some commercial payers may allow additional units with supporting documentation.",
+    unknown: "At MUE threshold. Additional units may be denied. Review payer-specific policy.",
+  },
+};
+
+const PAYER_CONTEXT: Record<string, string> = {
+  medicare: "Payer: medicare; hard auto-adjudication",
+  commercial: "Payer: commercial; conservative MUE enforcement",
+  unknown: "Payer: unknown; conservative defaults applied",
 };
 
 // ---------------------------------------------------------------------------
@@ -195,9 +209,9 @@ function buildTriggeredEvaluation(
     message_internal: desc.internal,
     evidence_fields: evidenceFields,
     missing_info_keys: [],
-    payer_note: ruleId === "R-3.2.1" ? PAYER_NOTES[payerType] : null,
+    payer_note: PAYER_NOTES[ruleId]?.[payerType] ?? null,
     suppressed_code: null,
-    payer_context: null,
+    payer_context: PAYER_CONTEXT[payerType] ?? null,
     policy_anchor: POLICY_ANCHOR,
   };
 }

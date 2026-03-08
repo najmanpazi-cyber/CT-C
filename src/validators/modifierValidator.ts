@@ -2,6 +2,7 @@
 // Deterministic, stateless validator for modifier 59/X guardrails.
 // Covers ACC-01 rules R-3.3.1 (force-review), R-3.3.2 (block), R-3.3.3 (warn).
 // First validator in the system to produce force_review_items.
+// BETA SCOPE: Orthopedics v1 only. Do not expand specialty scope without explicit ACC approval.
 
 import type {
   RuleId,
@@ -311,6 +312,16 @@ function buildTriggeredEvaluation(
 
   const payerNote = ruleConfig?.payer_note ?? null;
 
+  // Build payer context describing how payer type influenced this evaluation
+  let payerContext: string | null = null;
+  if (ruleId === "R-3.3.1") {
+    payerContext = `Payer: ${input.payer_type}; Medicare -59 requires X-modifier conversion`;
+  } else if (ruleId === "R-3.3.3") {
+    payerContext = `Payer: ${input.payer_type}; -59 accepted, X-modifier recommended for audit protection`;
+  } else {
+    payerContext = `Payer: ${input.payer_type}`;
+  }
+
   return {
     rule_id: ruleId,
     domain: RULE_DOMAIN_MAP[ruleId],
@@ -323,7 +334,7 @@ function buildTriggeredEvaluation(
     missing_info_keys: missingInfoKeys,
     payer_note: payerNote,
     suppressed_code: null,
-    payer_context: null,
+    payer_context: payerContext,
     policy_anchor: POLICY_ANCHOR,
   };
 }

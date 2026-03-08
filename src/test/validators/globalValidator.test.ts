@@ -218,9 +218,10 @@ describe("Global Period Validator — ACC-07", () => {
   });
 
   // =========================================================================
-  // Test 9: R-3.4.3 pass — decision_for_surgery_documented=true
+  // Test 9: R-3.4.3 fires even when decision_for_surgery_documented=true
+  // (ACC-10 Phase 2: boolean is message context, NOT a gate — modifier -57 is still required)
   // =========================================================================
-  it("9. does not trigger R-3.4.3 when decision_for_surgery_documented is true", () => {
+  it("9. triggers R-3.4.3 even when decision_for_surgery_documented is true (modifier -57 still required)", () => {
     const input = makeInput({
       cpt_codes_submitted: ["99214", "27447"],
       modifiers_present: { "99214": ["-25"], "27447": ["-RT"] },
@@ -229,9 +230,13 @@ describe("Global Period Validator — ACC-07", () => {
     const result = validateGlobal(input);
 
     const r343 = result.rule_evaluations.find((re) => re.rule_id === "R-3.4.3");
-    expect(r343!.trigger_matched).toBe(false);
+    expect(r343!.trigger_matched).toBe(true);
 
-    expect(result.force_review_items).toHaveLength(0);
+    // Force-review item created with "documented" message
+    const frItem = result.force_review_items.find((item) => item.rule_id === "R-3.4.3");
+    expect(frItem).toBeDefined();
+    expect(frItem!.message).toContain("Decision for surgery is documented");
+    expect(frItem!.message).toContain("-57");
   });
 
   // =========================================================================
@@ -522,7 +527,8 @@ describe("Global Period Validator — ACC-07", () => {
     const frResult = validateGlobal(frInput);
     const frOutput = buildTestCodingOutput(frResult, { payer_type: "medicare" });
 
-    expect(frOutput.clean_claim_ready).toBe(false);
+    // ACC-01 §3.0: force-review leaves clean_claim_ready unchanged (true)
+    expect(frOutput.clean_claim_ready).toBe(true);
     expect(frOutput.confidence).toBe("medium");
     expect(frOutput.force_review_pending).toBe(true);
 

@@ -109,6 +109,14 @@ const Index = () => {
         }
       />
 
+      {/* ── Beta Disclaimer Banner ── */}
+      <div
+        className="w-full border-b px-4 py-1.5 text-center text-xs"
+        style={{ backgroundColor: "#F9FAFB", color: "#6B7280" }}
+      >
+        Beta — Orthopedics v1 only. Outputs are decision-support; always verify before submission.
+      </div>
+
       {/* ── Mobile Tab Bar ── */}
       <div className="relative flex border-b lg:hidden">
         {/* Sliding indicator */}

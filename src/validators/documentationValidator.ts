@@ -2,6 +2,7 @@
 // Deterministic, stateless validator for documentation sufficiency rules.
 // Covers ACC-01 rules R-3.5.1 (block), R-3.5.2 (block), R-3.5.3 (warn),
 // R-3.5.4 (block), R-3.5.5 (warn).
+// BETA SCOPE: Orthopedics v1 only. Do not expand specialty scope without explicit ACC approval.
 
 import type {
   RuleId,
@@ -221,6 +222,7 @@ function buildTriggeredEvaluation(
   ruleId: RuleId,
   evidenceFields: string[],
   missingInfoKeys: string[],
+  payerType: "commercial" | "medicare" | "unknown"
 ): RuleEvaluation {
   return {
     rule_id: ruleId,
@@ -234,7 +236,7 @@ function buildTriggeredEvaluation(
     missing_info_keys: missingInfoKeys,
     payer_note: null,
     suppressed_code: null,
-    payer_context: null,
+    payer_context: `Payer: ${payerType}`,
     policy_anchor: POLICY_ANCHORS[ruleId],
   };
 }
@@ -470,19 +472,19 @@ export function validateDocumentation(input: DocumentationValidatorInput): Docum
   // --- Build rule evaluations ---
   const ruleEvaluations: RuleEvaluation[] = [
     trigger351
-      ? buildTriggeredEvaluation("R-3.5.1", evidence351, ruleConfig351.missing_info_keys)
+      ? buildTriggeredEvaluation("R-3.5.1", evidence351, ruleConfig351.missing_info_keys, input.payer_type)
       : buildPassEvaluation("R-3.5.1"),
     trigger352
-      ? buildTriggeredEvaluation("R-3.5.2", evidence352, [])
+      ? buildTriggeredEvaluation("R-3.5.2", evidence352, [], input.payer_type)
       : buildPassEvaluation("R-3.5.2"),
     trigger353
-      ? buildTriggeredEvaluation("R-3.5.3", evidence353, ruleConfig353.missing_info_keys)
+      ? buildTriggeredEvaluation("R-3.5.3", evidence353, ruleConfig353.missing_info_keys, input.payer_type)
       : buildPassEvaluation("R-3.5.3"),
     trigger354
-      ? buildTriggeredEvaluation("R-3.5.4", evidence354, ruleConfig354.missing_info_keys)
+      ? buildTriggeredEvaluation("R-3.5.4", evidence354, ruleConfig354.missing_info_keys, input.payer_type)
       : buildPassEvaluation("R-3.5.4"),
     trigger355
-      ? buildTriggeredEvaluation("R-3.5.5", evidence355, ruleConfig355.missing_info_keys)
+      ? buildTriggeredEvaluation("R-3.5.5", evidence355, ruleConfig355.missing_info_keys, input.payer_type)
       : buildPassEvaluation("R-3.5.5"),
   ];
 

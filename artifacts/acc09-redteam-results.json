@@ -1,0 +1,2186 @@
+{
+  "run_metadata": {
+    "run_timestamp": "2026-03-08T00:13:42.152Z",
+    "git_commit_sha": "7c20abb148fea0e0a6ba551fd7901dfd3d361373",
+    "scenario_pack_path": "specs/ACC-02-scenarios.jsonl",
+    "scenario_count_loaded": "109",
+    "harness_file_path": "scripts/redteam-acc09.ts",
+    "validator_files_used": "src/validators/ptpValidator.ts, src/validators/mueValidator.ts, src/validators/modifierValidator.ts, src/validators/globalValidator.ts, src/validators/documentationValidator.ts",
+    "rule_engine_version": "orthopedics-v1-beta",
+    "test_pack_version": "ACC-02 v1",
+    "environment": "bun 1.3.10, win32"
+  },
+  "overall_summary": {
+    "total": 109,
+    "pass": 109,
+    "false_pass": 0,
+    "false_fail": 0,
+    "wrong_action": 0,
+    "partial": 0,
+    "unevaluable": 0
+  },
+  "domain_summary": {
+    "PTP": {
+      "total": 28,
+      "pass": 28,
+      "false_pass": 0,
+      "false_fail": 0,
+      "wrong_action": 0,
+      "partial": 0,
+      "unevaluable": 0
+    },
+    "MUE": {
+      "total": 20,
+      "pass": 20,
+      "false_pass": 0,
+      "false_fail": 0,
+      "wrong_action": 0,
+      "partial": 0,
+      "unevaluable": 0
+    },
+    "MODIFIER": {
+      "total": 21,
+      "pass": 21,
+      "false_pass": 0,
+      "false_fail": 0,
+      "wrong_action": 0,
+      "partial": 0,
+      "unevaluable": 0
+    },
+    "GLOBAL": {
+      "total": 23,
+      "pass": 23,
+      "false_pass": 0,
+      "false_fail": 0,
+      "wrong_action": 0,
+      "partial": 0,
+      "unevaluable": 0
+    },
+    "DOC_SUFFICIENCY": {
+      "total": 30,
+      "pass": 30,
+      "false_pass": 0,
+      "false_fail": 0,
+      "wrong_action": 0,
+      "partial": 0,
+      "unevaluable": 0
+    }
+  },
+  "confidence_summary": {
+    "total_mismatches": 0,
+    "too_optimistic": 0,
+    "too_pessimistic": 0,
+    "details": []
+  },
+  "schema_state_summary": {
+    "issues": []
+  },
+  "findings": [],
+  "scenario_results": [
+    {
+      "scenario_id": "ACC02-001",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-002",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-003",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-004",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-005",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-006",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-007",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-008",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-009",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-010",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-011",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.1.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.3",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-012",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.1.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.3",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-013",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.1.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.3",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-014",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.1.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.3",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-015",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-016",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-017",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-018",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-019",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-020",
+      "domain": "PTP",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-021",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-022",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-023",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-024",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-025",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-026",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-027",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-028",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-029",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-030",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-031",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-032",
+      "domain": "MUE",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.2.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-033",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-034",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-035",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-036",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-037",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.3.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-038",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-039",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-040",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.3.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-041",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-042",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2",
+        "R-3.3.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2",
+        "R-3.3.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-043",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-044",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-045",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-046",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-047",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-048",
+      "domain": "MODIFIER",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-049",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.4.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-050",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.4.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-051",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.4.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-052",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.4.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-053",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-054",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-055",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-056",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-057",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-058",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-059",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-060",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-061",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-062",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-063",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-064",
+      "domain": "GLOBAL",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-065",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-066",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-067",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-068",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-069",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-070",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-071",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-072",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-073",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-074",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.5.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-075",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.5.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-076",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.5.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-077",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.5.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.5.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-078",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-079",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-080",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-081",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-082",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1",
+        "R-3.5.5"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1",
+        "R-3.5.5"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-083",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1",
+        "R-3.5.3",
+        "R-3.5.5"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1",
+        "R-3.5.3",
+        "R-3.5.5"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-084",
+      "domain": "DOC_SUFFICIENCY",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.5.1",
+        "R-3.5.5"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.5.1",
+        "R-3.5.5"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-085",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1",
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-086",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2",
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-087",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.4.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-088",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-089",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.3.2",
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-090",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.4",
+        "R-3.3.1",
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.4",
+        "R-3.2.2",
+        "R-3.3.1",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-091",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.4",
+        "R-3.2.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.4.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-092",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1",
+        "R-3.4.4",
+        "R-3.5.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.2",
+        "R-3.4.4",
+        "R-3.5.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-093",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.2",
+        "R-3.5.4"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.2",
+        "R-3.2.2",
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-094",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.4.2",
+        "R-3.5.5"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.4.2",
+        "R-3.5.5"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-095",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "warn",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [
+        "R-3.1.3",
+        "R-3.5.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.3",
+        "R-3.2.2",
+        "R-3.5.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-096",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "force-review",
+      "actual_action": "force-review",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "medium",
+      "actual_confidence": "medium",
+      "expected_rule_hits": [
+        "R-3.3.1",
+        "R-3.4.2"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.2",
+        "R-3.3.1",
+        "R-3.4.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-097",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "actual_rule_hits": [
+        "R-3.2.1",
+        "R-3.3.2",
+        "R-3.3.3"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-098",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.4.1",
+        "R-3.5.4",
+        "R-3.3.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.3.1",
+        "R-3.4.1",
+        "R-3.5.4"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-099",
+      "domain": "CROSS_DOMAIN",
+      "classification": "PASS",
+      "expected_action": "block",
+      "actual_action": "block",
+      "expected_clean_claim_ready": false,
+      "actual_clean_claim_ready": false,
+      "expected_confidence": "low",
+      "actual_confidence": "low",
+      "expected_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.1",
+        "R-3.5.1"
+      ],
+      "actual_rule_hits": [
+        "R-3.1.1",
+        "R-3.2.1",
+        "R-3.2.2",
+        "R-3.5.1"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-100",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-101",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-102",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-103",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-104",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-105",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-106",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-107",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-108",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    },
+    {
+      "scenario_id": "ACC02-109",
+      "domain": "CLEAN_PASS",
+      "classification": "PASS",
+      "expected_action": "pass",
+      "actual_action": "warn",
+      "expected_clean_claim_ready": true,
+      "actual_clean_claim_ready": true,
+      "expected_confidence": "high",
+      "actual_confidence": "high",
+      "expected_rule_hits": [],
+      "actual_rule_hits": [
+        "R-3.2.2"
+      ],
+      "finding": null
+    }
+  ],
+  "patch_queue_suggestions": [
+    {
+      "priority": 1,
+      "action": "Add documentation evidence booleans to structured_fields",
+      "root_cause": "MAPPING_BUG",
+      "affected_count": 0
+    },
+    {
+      "priority": 2,
+      "action": "Add diagnosis_text to structured_fields",
+      "root_cause": "MAPPING_BUG",
+      "target": "R-3.5.4"
+    },
+    {
+      "priority": 3,
+      "action": "Resolve clean_claim_ready force-review semantics",
+      "root_cause": "SCHEMA_STATE_BUG"
+    },
+    {
+      "priority": 4,
+      "action": "Add anatomic_site/approach to structured_fields",
+      "root_cause": "MAPPING_BUG",
+      "target": "R-3.5.5, R-3.5.3"
+    },
+    {
+      "priority": 5,
+      "action": "Build validator orchestrator",
+      "root_cause": "ARCHITECTURE_RISK"
+    }
+  ],
+  "architecture_followups": [
+    "Missing structured_fields for documentation validator (diagnosis_text, anatomic_site, approach)",
+    "Missing structured_fields for modifier validator (distinct_*_documented booleans)",
+    "Missing structured_fields for global validator (em_separately_identifiable, decision_for_surgery_documented)",
+    "clean_claim_ready derivation disagrees with test pack for force-review scenarios",
+    "No unified validator orchestrator/pipeline",
+    "No audit trace / result version metadata from validators directly"
+  ]
+}
