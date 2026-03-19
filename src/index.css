@@ -164,3 +164,21 @@
     font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', 'JetBrains Mono', monospace;
   }
 }
+
+/* Landing page utilities */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+.bg-medical-gradient {
+  background: linear-gradient(135deg, #004A7C 0%, #003358 100%);
+}
+
+.bg-accent-gradient {
+  background: linear-gradient(135deg, #006b5e 0%, #004f57 100%);
+}
+
+html {
+  scroll-behavior: smooth;
+}

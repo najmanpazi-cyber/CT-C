@@ -2,7 +2,7 @@
 
 ## What This Project Is
 
-ClaimVex is an AI-powered CPT coding assistant for orthopedic practices. A medical coder or clinician pastes raw clinical notes and gets accurate CPT codes, ICD-10 codes, and modifiers back in 3–5 seconds — eliminating manual lookup errors and the revenue lost to undercoding or claim denials.
+ClaimVex is an AI-powered CPT coding validation engine for orthopedic practices. Medical coders enter CPT codes, modifiers, and date of service into a structured form and get instant pass/fail results from 5 validator modules (PTP pairs, MUE limits, Modifier 59/X, Global Period, Documentation Sufficiency). The tool catches coding errors before claims are submitted — reducing denials and revenue leakage. Beta product targeting 3-5 practices with a 30-day free trial → $99/mo conversion.
 
 ## Tech Stack
 
@@ -88,6 +88,34 @@ Do NOT add new npm/bun packages without asking first.
 - For clear tasks, just execute. Only ask when there's genuine ambiguity or risk.
 - Lead with actions and decisions, explain only when needed.
 - Don't give time estimates.
+
+## Build Plan (CLAIMVEX_BUILD_PLAN.md)
+
+Full build plan is in `CLAIMVEX_BUILD_PLAN.md`. Summary of the 5 phases:
+
+### Phase 1: Authentication
+Supabase Auth with email+password. Routes: `/login`, `/signup`, `/dashboard` (protected). Nav bar with logo, user email, logout. Color palette: navy #004A7C, teal #00796B.
+
+### Phase 2: Validation Input Form
+Structured form on dashboard: CPT code(s), modifier(s), date of service, optional ICD-10 and patient age. Client-side validation. Clean card-based layout for non-technical billing coders.
+
+### Phase 3: Wire Validators + Results Display
+Service layer adapts form input → validator format. Runs all 5 validators (PTP, MUE, Modifier 59/X, Global Period, Doc Sufficiency). Results panel with per-validator PASS/FAIL/WARNING cards, overall summary, expand/collapse details.
+
+### Phase 4: History + Metrics
+Store validations in Supabase `validations` table (RLS per user). History page with sortable table. Metrics dashboard: total validations, errors caught, warnings, estimated denials prevented, estimated savings (errors × $35).
+
+### Phase 5: Trial Management
+30-day free trial tracked via `user_profiles.trial_start`. Banner from day 21. After day 30: validation form disabled, history/metrics remain accessible (ROI data convinces conversion). Soft gate with CTA to continue at $99/mo.
+
+### Design System
+- Navy: #004A7C, Teal: #00796B, Error: #C62828, Warning: #E65100, Success: #2E7D32
+- shadcn/ui components, Tailwind layout, healthcare-professional aesthetic
+
+### What NOT to Touch
+- Validator modules (ACC-04 through ACC-08) unless bug found during integration
+- CI/CD pipeline and HIPAA guard hook
+- Landing page (handled separately)
 
 ## Known Issues
 
