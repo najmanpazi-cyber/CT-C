@@ -1,5 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import ValidationForm from "@/components/ValidationForm";
+import type { ValidationFormData } from "@/components/ValidationForm";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
@@ -8,6 +10,11 @@ export default function Dashboard() {
   async function handleSignOut() {
     await signOut();
     navigate("/login", { replace: true });
+  }
+
+  function handleValidate(data: ValidationFormData) {
+    // Phase 2: log to console. Phase 3 will wire to validators.
+    console.log("Validation submitted:", data);
   }
 
   return (
@@ -33,20 +40,19 @@ export default function Dashboard() {
       </nav>
 
       {/* Main Content */}
-      <main className="mx-auto max-w-7xl px-6 lg:px-8 py-12">
+      <main className="mx-auto max-w-3xl px-6 lg:px-8 py-12">
         <div className="mb-8">
-          <h1 className="text-3xl font-headline font-extrabold text-cv-primary">Welcome to ClaimVex</h1>
-          <p className="mt-2 text-cv-on-surface-variant">CPT Coding Validation Engine</p>
+          <h1 className="text-3xl font-headline font-extrabold text-cv-primary">Validate a Claim</h1>
+          <p className="mt-2 text-cv-on-surface-variant">Enter claim data below to check against all validation modules.</p>
         </div>
 
-        {/* Placeholder Card */}
-        <div className="rounded-2xl border border-cv-outline-variant/20 bg-cv-surface-container-lowest p-10 text-center shadow-sm">
-          <div className="w-16 h-16 bg-cv-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
-            <span className="material-symbols-outlined text-cv-secondary text-3xl">fact_check</span>
-          </div>
-          <h2 className="text-xl font-bold text-cv-on-surface mb-2">Validation Form Coming Soon</h2>
-          <p className="text-sm text-cv-on-surface-variant max-w-md mx-auto">
-            In the next phase, you&apos;ll be able to enter CPT codes, modifiers, and dates of service to validate claims against all 5 rule modules.
+        <ValidationForm onSubmit={handleValidate} />
+
+        {/* Results placeholder — Phase 3 will replace this */}
+        <div className="mt-8 rounded-2xl border border-dashed border-cv-outline-variant/30 bg-cv-surface-container-low/50 p-8 text-center">
+          <span className="material-symbols-outlined text-cv-on-surface-variant/40 text-3xl mb-2">pending</span>
+          <p className="text-sm text-cv-on-surface-variant">
+            Validation results will appear here after you click Validate.
           </p>
         </div>
       </main>

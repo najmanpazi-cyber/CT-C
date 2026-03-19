@@ -106,8 +106,14 @@ Supabase Auth with email+password. Routes: `/login`, `/signup`, `/dashboard` (pr
 
 **Notes for Phase 2:** Dashboard is a placeholder. Build the validation input form as the main content of `/dashboard`. The AuthProvider and nav bar are ready to reuse.
 
-### Phase 2: Validation Input Form
+### Phase 2: Validation Input Form — COMPLETE
 Structured form on dashboard: CPT code(s), modifier(s), date of service, optional ICD-10 and patient age. Client-side validation. Clean card-based layout for non-technical billing coders.
+
+**Completed files:**
+- `src/components/ValidationForm.tsx` — form component with 5 fields, client-side validation, Clear/Validate buttons
+- `src/pages/Dashboard.tsx` — updated to use ValidationForm, logs payload to console (Phase 3 wires validators)
+
+**Notes for Phase 3:** `ValidationFormData` interface exports `cptCodes`, `modifiers`, `dateOfService`, `icd10Code`, `patientAge`. Build a service layer that transforms this into each validator's input format and runs all 5.
 
 ### Phase 3: Wire Validators + Results Display
 Service layer adapts form input → validator format. Runs all 5 validators (PTP, MUE, Modifier 59/X, Global Period, Doc Sufficiency). Results panel with per-validator PASS/FAIL/WARNING cards, overall summary, expand/collapse details.
