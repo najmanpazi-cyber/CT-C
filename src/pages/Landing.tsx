@@ -25,9 +25,12 @@ export default function Landing() {
             >
               Login
             </button>
-            <button className="bg-medical-gradient text-cv-on-primary px-6 py-2.5 text-sm font-bold rounded-lg shadow-sm hover:shadow-md hover:brightness-110 transition-all active:scale-95">
+            <a
+              href="mailto:pazi@claimvex.com?subject=ClaimVex%20Demo%20Request"
+              className="bg-medical-gradient text-cv-on-primary px-6 py-2.5 text-sm font-bold rounded-lg shadow-sm hover:shadow-md hover:brightness-110 transition-all active:scale-95"
+            >
               Request Demo
-            </button>
+            </a>
           </div>
         </div>
       </nav>
@@ -44,11 +47,17 @@ export default function Landing() {
                 Stop <strong>revenue leakage</strong>, eliminate <strong>denied claims</strong>, and reclaim <strong>hours lost to manual code review</strong> with AI-powered validation that scans for CPT errors and documentation gaps before you hit submit.
               </p>
               <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-                <button className="bg-medical-gradient text-cv-on-primary px-8 py-4 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]">
+                <a
+                  href="mailto:pazi@claimvex.com?subject=ClaimVex%20Demo%20Request"
+                  className="bg-medical-gradient text-cv-on-primary px-8 py-4 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all hover:scale-[1.02]"
+                >
                   Request Demo
-                </button>
-                <button className="bg-cv-surface-container-high text-cv-primary px-8 py-4 text-base font-bold rounded-xl hover:bg-cv-surface-container-highest transition-all border border-cv-outline-variant/20">
-                  View Documentation
+                </a>
+                <button
+                  onClick={() => navigate("/signup")}
+                  className="bg-cv-surface-container-high text-cv-primary px-8 py-4 text-base font-bold rounded-xl hover:bg-cv-surface-container-highest transition-all border border-cv-outline-variant/20"
+                >
+                  Try Free
                 </button>
               </div>
             </div>
@@ -242,9 +251,12 @@ export default function Landing() {
               <p className="text-cv-primary-fixed text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium opacity-90 relative">
                 Join leading healthcare institutions using ClaimVex to achieve clinical precision in every claim.
               </p>
-              <button className="bg-cv-secondary-container text-cv-primary px-10 py-5 text-lg font-extrabold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg hover:bg-white relative">
+              <a
+                href="mailto:pazi@claimvex.com?subject=ClaimVex%20Demo%20Request"
+                className="inline-block bg-cv-secondary-container text-cv-primary px-10 py-5 text-lg font-extrabold rounded-xl hover:scale-105 active:scale-95 transition-all shadow-lg hover:bg-white relative"
+              >
                 Request a Demo Now
-              </button>
+              </a>
             </div>
           </div>
         </section>

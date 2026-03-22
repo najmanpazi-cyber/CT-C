@@ -10,6 +10,8 @@ import { validateModifiers, fromStructuredFields as modFromSF } from "@/validato
 import { validateGlobal, fromStructuredFields as globalFromSF } from "@/validators/globalValidator";
 import { validateDocumentation, fromStructuredFields as docFromSF } from "@/validators/documentationValidator";
 
+import globalCptData from "@/data/global/global.orthopedics.v1.json";
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -35,29 +37,68 @@ export interface ValidationResult {
 }
 
 // ---------------------------------------------------------------------------
+// Global period helpers
+// ---------------------------------------------------------------------------
+
+function lookupGlobalDays(cptCode: string): number | null {
+  const entry = (globalCptData as Array<{ cpt_code: string; global_days: number }>)
+    .find((e) => e.cpt_code === cptCode);
+  return entry ? entry.global_days : null;
+}
+
+function computeGlobalStatus(
+  priorCpt: string,
+  priorDate: string,
+  encounterDate: string,
+): { status: string; surgeryDate: string | null; surgeryCpt: string | null } {
+  if (!priorCpt || !priorDate) {
+    return { status: "none", surgeryDate: null, surgeryCpt: null };
+  }
+
+  const globalDays = lookupGlobalDays(priorCpt);
+  if (globalDays === null || globalDays === 0) {
+    return { status: "none", surgeryDate: priorDate, surgeryCpt: priorCpt };
+  }
+
+  const surgery = new Date(priorDate);
+  const encounter = new Date(encounterDate);
+  const elapsed = Math.floor((encounter.getTime() - surgery.getTime()) / (1000 * 60 * 60 * 24));
+
+  if (elapsed > globalDays) {
+    return { status: "none", surgeryDate: priorDate, surgeryCpt: priorCpt };
+  }
+
+  const statusKey = `active_${globalDays}` as string;
+  return { status: statusKey, surgeryDate: priorDate, surgeryCpt: priorCpt };
+}
+
+// ---------------------------------------------------------------------------
 // Adapter: form data → structured fields (common shape for all validators)
 // ---------------------------------------------------------------------------
 
 function buildStructuredFields(data: ValidationFormData) {
-  // Build modifiers_present map: assign all modifiers to all CPT codes
-  // (the validators will figure out which are relevant)
   const modifiers_present: Record<string, string[]> = {};
   for (const code of data.cptCodes) {
     modifiers_present[code] = data.modifiers.map((m) => `-${m}`);
   }
 
-  // Build units_of_service: count occurrences of each CPT code
   const units_of_service: Record<string, number> = {};
   for (const code of data.cptCodes) {
     units_of_service[code] = (units_of_service[code] || 0) + 1;
   }
 
-  // Deduplicate CPT codes for validators that expect unique list
   const uniqueCpts = [...new Set(data.cptCodes)];
 
+  // Compute global period from prior surgery fields
+  const gp = computeGlobalStatus(
+    data.priorSurgeryCpt,
+    data.priorSurgeryDate,
+    data.dateOfService,
+  );
+
   return {
-    laterality: "not_specified" as const,
-    payer_type: "commercial" as const,
+    laterality: data.laterality,
+    payer_type: data.payerType,
     cpt_codes_submitted: uniqueCpts,
     modifiers_present,
     units_of_service,
@@ -65,21 +106,17 @@ function buildStructuredFields(data: ValidationFormData) {
     setting: "office" as const,
     patient_type: "established",
     physician_id: "default",
-    // Global period fields — default to "none" (no active global period)
-    // Phase 2 form doesn't collect these yet; future enhancement
-    global_period_status: "none",
-    global_period_surgery_date: null,
-    global_period_surgery_cpt: null,
+    global_period_status: gp.status,
+    global_period_surgery_date: gp.surgeryDate,
+    global_period_surgery_cpt: gp.surgeryCpt,
     encounter_date: data.dateOfService,
-    prior_surgery_related: false,
+    prior_surgery_related: gp.status !== "none",
     decision_for_surgery_documented: false,
     em_separately_identifiable: false,
-    // Modifier documentation flags — default false
     distinct_encounter_documented: false,
     distinct_site_documented: false,
     distinct_practitioner_documented: false,
     non_overlapping_service_documented: false,
-    // Documentation fields
     diagnosis_text: null,
     anatomic_site: null,
     approach: null,
