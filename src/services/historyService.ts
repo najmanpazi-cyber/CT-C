@@ -1,6 +1,7 @@
 // Service for storing and retrieving validation history from Supabase.
 
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import type { ValidationFormData } from "@/components/ValidationForm";
 import type { ValidationResult } from "@/services/validationService";
 
@@ -31,14 +32,14 @@ export async function saveValidation(
   inputData: ValidationFormData,
   result: ValidationResult,
 ): Promise<{ error: string | null }> {
-  const { error } = await supabase.from("validations").insert({
+  const { error } = await supabase.from("validations").insert([{
     user_id: userId,
-    input_data: inputData as unknown as Record<string, unknown>,
-    results: result as unknown as Record<string, unknown>,
+    input_data: inputData as unknown as Json,
+    results: result as unknown as Json,
     overall_status: result.overallStatus,
     errors_found: result.fails,
     warnings_found: result.warnings,
-  });
+  }]);
 
   if (error) return { error: error.message };
   return { error: null };

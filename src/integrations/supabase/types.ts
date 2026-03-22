@@ -49,55 +49,55 @@ export type Database = {
       }
       user_profiles: {
         Row: {
-          id: string
-          trial_start: string
-          plan: string
           created_at: string
+          id: string
+          plan: string
+          trial_start: string
         }
         Insert: {
-          id: string
-          trial_start?: string
-          plan?: string
           created_at?: string
+          id: string
+          plan?: string
+          trial_start?: string
         }
         Update: {
-          id?: string
-          trial_start?: string
-          plan?: string
           created_at?: string
+          id?: string
+          plan?: string
+          trial_start?: string
         }
         Relationships: []
       }
       validations: {
         Row: {
-          id: string
-          user_id: string
-          input_data: Json
-          results: Json
-          overall_status: string
-          errors_found: number
-          warnings_found: number
           created_at: string
+          errors_found: number
+          id: string
+          input_data: Json
+          overall_status: string
+          results: Json
+          user_id: string
+          warnings_found: number
         }
         Insert: {
-          id?: string
-          user_id: string
-          input_data: Json
-          results: Json
-          overall_status: string
-          errors_found?: number
-          warnings_found?: number
           created_at?: string
+          errors_found?: number
+          id?: string
+          input_data: Json
+          overall_status: string
+          results: Json
+          user_id: string
+          warnings_found?: number
         }
         Update: {
-          id?: string
-          user_id?: string
-          input_data?: Json
-          results?: Json
-          overall_status?: string
-          errors_found?: number
-          warnings_found?: number
           created_at?: string
+          errors_found?: number
+          id?: string
+          input_data?: Json
+          overall_status?: string
+          results?: Json
+          user_id?: string
+          warnings_found?: number
         }
         Relationships: []
       }

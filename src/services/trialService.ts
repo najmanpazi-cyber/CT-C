@@ -21,7 +21,7 @@ export async function fetchTrialStatus(userId: string): Promise<TrialStatus> {
     .from("user_profiles")
     .select("trial_start, plan")
     .eq("id", userId)
-    .single();
+    .maybeSingle();
 
   if (error || !data) {
     // If profile doesn't exist yet, treat as new trial
