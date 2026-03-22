@@ -1,6 +1,7 @@
 // Service for storing and retrieving validation history from Supabase.
 
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import type { ValidationFormData } from "@/components/ValidationForm";
 import type { ValidationResult } from "@/services/validationService";
 
