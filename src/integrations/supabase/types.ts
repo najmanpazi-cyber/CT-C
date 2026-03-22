@@ -47,6 +47,60 @@ export type Database = {
         }
         Relationships: []
       }
+      user_profiles: {
+        Row: {
+          created_at: string
+          id: string
+          plan: string
+          trial_start: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          plan?: string
+          trial_start?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          plan?: string
+          trial_start?: string
+        }
+        Relationships: []
+      }
+      validations: {
+        Row: {
+          created_at: string
+          errors_found: number
+          id: string
+          input_data: Json
+          overall_status: string
+          results: Json
+          user_id: string
+          warnings_found: number
+        }
+        Insert: {
+          created_at?: string
+          errors_found?: number
+          id?: string
+          input_data: Json
+          overall_status: string
+          results: Json
+          user_id: string
+          warnings_found?: number
+        }
+        Update: {
+          created_at?: string
+          errors_found?: number
+          id?: string
+          input_data?: Json
+          overall_status?: string
+          results?: Json
+          user_id?: string
+          warnings_found?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
