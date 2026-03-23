@@ -8,6 +8,7 @@ import type { TrialStatus } from "@/services/trialService";
 import ValidationResults from "@/components/ValidationResults";
 import TrialBanner from "@/components/TrialBanner";
 import TrialBadge from "@/components/TrialBadge";
+import { openRoiReport } from "@/services/roiExportService";
 
 function MetricCard({ label, value, icon, accent = false }: { label: string; value: string; icon: string; accent?: boolean }) {
   return (
@@ -99,14 +100,25 @@ export default function History() {
           <>
             {/* Metrics Dashboard */}
             {metrics && metrics.totalValidations > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">
-                <MetricCard label="Validations" value={String(metrics.totalValidations)} icon="assignment_turned_in" />
-                <MetricCard label="Errors Caught" value={String(metrics.totalErrors)} icon="error" />
-                <MetricCard label="Warnings" value={String(metrics.totalWarnings)} icon="warning" />
-                <MetricCard label="Error Rate" value={`${metrics.errorRate.toFixed(1)}%`} icon="percent" />
-                <MetricCard label="Denials Prevented" value={String(metrics.estimatedDenialsPrevented)} icon="shield" />
-                <MetricCard label="Est. Savings" value={`$${metrics.estimatedSavings.toLocaleString()}`} icon="savings" accent />
-              </div>
+              <>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
+                  <MetricCard label="Validations" value={String(metrics.totalValidations)} icon="assignment_turned_in" />
+                  <MetricCard label="Errors Caught" value={String(metrics.totalErrors)} icon="error" />
+                  <MetricCard label="Warnings" value={String(metrics.totalWarnings)} icon="warning" />
+                  <MetricCard label="Error Rate" value={`${metrics.errorRate.toFixed(1)}%`} icon="percent" />
+                  <MetricCard label="Denials Prevented" value={String(metrics.estimatedDenialsPrevented)} icon="shield" />
+                  <MetricCard label="Est. Savings" value={`$${metrics.estimatedSavings.toLocaleString()}`} icon="savings" accent />
+                </div>
+                <div className="flex justify-end mb-10">
+                  <button
+                    onClick={() => openRoiReport(validations, metrics, user?.email ?? "")}
+                    className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-cv-primary hover:bg-cv-primary/5 rounded-lg transition-colors border border-cv-outline-variant/20"
+                  >
+                    <span className="material-symbols-outlined text-lg">download</span>
+                    Export ROI Report
+                  </button>
+                </div>
+              </>
             )}
 
             {/* Empty State */}
