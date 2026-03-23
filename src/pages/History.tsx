@@ -9,6 +9,8 @@ import ValidationResults from "@/components/ValidationResults";
 import TrialBanner from "@/components/TrialBanner";
 import TrialBadge from "@/components/TrialBadge";
 import { openRoiReport } from "@/services/roiExportService";
+import { computeAccuracyScore } from "@/services/accuracyService";
+import type { AccuracyScore } from "@/services/accuracyService";
 
 function MetricCard({ label, value, icon, accent = false }: { label: string; value: string; icon: string; accent?: boolean }) {
   return (
@@ -31,6 +33,7 @@ export default function History() {
   const [error, setError] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [trial, setTrial] = useState<TrialStatus | null>(null);
+  const [accuracy, setAccuracy] = useState<AccuracyScore | null>(null);
 
   useEffect(() => {
     if (!user) return;
@@ -42,6 +45,7 @@ export default function History() {
       } else {
         setValidations(data);
         setMetrics(computeMetrics(data));
+        setAccuracy(computeAccuracyScore(data));
       }
       setLoading(false);
     }
@@ -109,6 +113,22 @@ export default function History() {
                   <MetricCard label="Denials Prevented" value={String(metrics.estimatedDenialsPrevented)} icon="shield" />
                   <MetricCard label="Est. Savings" value={`$${metrics.estimatedSavings.toLocaleString()}`} icon="savings" accent />
                 </div>
+                {accuracy?.canShow && (
+                  <div className="rounded-xl border border-cv-outline-variant/20 bg-cv-surface-container-lowest p-5 mb-4 flex items-center gap-6">
+                    <div className="text-center">
+                      <div className={`text-4xl font-extrabold font-headline ${accuracy.gradeColor}`}>{accuracy.grade}</div>
+                      <div className="text-xs font-bold text-cv-on-surface-variant mt-1">Score: {accuracy.score}/100</div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-cv-on-surface mb-1">Coding Accuracy Score</div>
+                      <div className="text-xs text-cv-on-surface-variant">
+                        {accuracy.cleanRate}% clean submission rate across {accuracy.totalValidations} validations.
+                        {accuracy.avgModulesTriggered > 0 && ` Avg ${accuracy.avgModulesTriggered} issues per validation.`}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex justify-end mb-10">
                   <button
                     onClick={() => openRoiReport(validations, metrics, user?.email ?? "")}

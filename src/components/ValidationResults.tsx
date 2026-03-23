@@ -79,6 +79,55 @@ function ModuleCard({ module }: { module: ModuleResult }) {
   );
 }
 
+function CopyCodesButton({ result }: { result: ValidationResult }) {
+  const [copied, setCopied] = useState(false);
+
+  function buildCopyText(): string {
+    const lines: string[] = [];
+    // Extract CPT codes from triggered rules' evidence_fields, or from the input if available
+    const allCodes = new Set<string>();
+    for (const mod of result.modules) {
+      for (const rule of mod.triggered) {
+        for (const field of rule.evidence_fields) {
+          if (/^\d{5}$/.test(field)) allCodes.add(field);
+        }
+        if (rule.suppressed_code && /^\d{5}$/.test(rule.suppressed_code)) {
+          allCodes.add(rule.suppressed_code);
+        }
+      }
+    }
+    if (allCodes.size > 0) {
+      lines.push("CPT: " + [...allCodes].join(", "));
+    }
+    lines.push("");
+    lines.push(`Status: ${result.overallStatus === "clean" ? "Clean" : "Issues Found"}`);
+    lines.push(`Passed: ${result.passes} | Failed: ${result.fails} | Warnings: ${result.warnings}`);
+    for (const mod of result.modules) {
+      if (mod.status !== "pass" && mod.status !== "not_applicable") {
+        lines.push(`\n${mod.name}: ${mod.status.toUpperCase()}`);
+        lines.push(mod.summary);
+      }
+    }
+    return lines.join("\n");
+  }
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(buildCopyText());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <button
+      onClick={handleCopy}
+      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-cv-on-surface-variant hover:text-cv-primary hover:bg-cv-primary/5 rounded-lg transition-colors border border-cv-outline-variant/20"
+    >
+      <span className="material-symbols-outlined text-sm">{copied ? "check" : "content_copy"}</span>
+      {copied ? "Copied!" : "Copy Results"}
+    </button>
+  );
+}
+
 interface ValidationResultsProps {
   result: ValidationResult;
   onValidateAnother: () => void;
@@ -116,8 +165,9 @@ export default function ValidationResults({ result, onValidateAnother }: Validat
         ))}
       </div>
 
-      {/* Validate Another */}
-      <div className="flex justify-center pt-2">
+      {/* Actions */}
+      <div className="flex justify-center gap-3 pt-2">
+        <CopyCodesButton result={result} />
         <button
           onClick={onValidateAnother}
           className="px-6 py-3 text-sm font-bold text-cv-primary bg-cv-surface-container-high hover:bg-cv-surface-container-highest rounded-lg transition-colors border border-cv-outline-variant/20"

@@ -1,11 +1,24 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
+import { supabase } from "@/integrations/supabase/client";
+
+const SUBSPECIALTIES = [
+  { value: "general_ortho", label: "General Orthopedics" },
+  { value: "joint_replacement", label: "Joint Replacement" },
+  { value: "sports_medicine", label: "Sports Medicine" },
+  { value: "spine", label: "Spine" },
+  { value: "trauma", label: "Trauma" },
+  { value: "hand_upper", label: "Hand & Upper Extremity" },
+  { value: "foot_ankle", label: "Foot & Ankle" },
+  { value: "other", label: "Other / Multiple" },
+];
 
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [subspecialty, setSubspecialty] = useState("general_ortho");
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -33,6 +46,11 @@ export default function Signup() {
     if (err) {
       setError(err);
     } else {
+      // Save subspecialty to profile (non-blocking — profile created by trigger)
+      const { data: { user: newUser } } = await supabase.auth.getUser();
+      if (newUser) {
+        await supabase.from("user_profiles").update({ subspecialty }).eq("id", newUser.id);
+      }
       setSuccess(true);
     }
   }
@@ -122,6 +140,23 @@ export default function Signup() {
                 className="w-full rounded-lg border border-cv-outline-variant/40 bg-cv-surface px-4 py-2.5 text-sm text-cv-on-surface placeholder:text-cv-on-surface-variant/50 focus:border-cv-primary focus:outline-none focus:ring-2 focus:ring-cv-primary/20"
                 placeholder="Repeat your password"
               />
+            </div>
+
+            <div>
+              <label htmlFor="subspecialty" className="block text-sm font-semibold text-cv-on-surface mb-1.5">
+                Primary Subspecialty
+              </label>
+              <select
+                id="subspecialty"
+                value={subspecialty}
+                onChange={(e) => setSubspecialty(e.target.value)}
+                className="w-full rounded-lg border border-cv-outline-variant/40 bg-cv-surface px-4 py-2.5 text-sm text-cv-on-surface focus:border-cv-primary focus:outline-none focus:ring-2 focus:ring-cv-primary/20"
+              >
+                {SUBSPECIALTIES.map((s) => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
+                ))}
+              </select>
+              <p className="mt-1 text-xs text-cv-on-surface-variant">Helps us customize your experience</p>
             </div>
 
             {error && (

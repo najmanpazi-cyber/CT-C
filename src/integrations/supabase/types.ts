@@ -53,18 +53,27 @@ export type Database = {
           id: string
           plan: string
           trial_start: string
+          subspecialty: string | null
+          total_validations: number
+          clean_validations: number
         }
         Insert: {
           created_at?: string
           id: string
           plan?: string
           trial_start?: string
+          subspecialty?: string | null
+          total_validations?: number
+          clean_validations?: number
         }
         Update: {
           created_at?: string
           id?: string
           plan?: string
           trial_start?: string
+          subspecialty?: string | null
+          total_validations?: number
+          clean_validations?: number
         }
         Relationships: []
       }

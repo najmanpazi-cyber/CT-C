@@ -7,6 +7,8 @@ import SampleDataPanel from "@/components/SampleDataPanel";
 import TrialBanner from "@/components/TrialBanner";
 import TrialExpiredGate from "@/components/TrialExpiredGate";
 import TrialBadge from "@/components/TrialBadge";
+import UsageNudge from "@/components/UsageNudge";
+import { useOnboarding, OnboardingTooltip } from "@/components/OnboardingHints";
 import type { ValidationFormData } from "@/components/ValidationForm";
 import { runValidation } from "@/services/validationService";
 import { saveValidation, fetchValidations } from "@/services/historyService";
@@ -14,6 +16,7 @@ import { fetchTrialStatus } from "@/services/trialService";
 import { SAMPLE_SCENARIOS } from "@/data/sampleScenarios";
 import type { ValidationResult } from "@/services/validationService";
 import type { TrialStatus } from "@/services/trialService";
+import type { StoredValidation } from "@/services/historyService";
 
 export default function Dashboard() {
   const { user, signOut } = useAuth();
@@ -23,11 +26,18 @@ export default function Dashboard() {
   const [trial, setTrial] = useState<TrialStatus | null>(null);
   const [hasHistory, setHasHistory] = useState<boolean | null>(null);
   const [runningAll, setRunningAll] = useState(false);
+  const [validationCount, setValidationCount] = useState(0);
+  const [lastActiveDate, setLastActiveDate] = useState<string | null>(null);
+  const onboarding = useOnboarding();
 
   useEffect(() => {
     if (!user) return;
     fetchTrialStatus(user.id).then(setTrial);
-    fetchValidations(user.id).then(({ data }) => setHasHistory(data.length > 0));
+    fetchValidations(user.id).then(({ data }: { data: StoredValidation[] }) => {
+      setHasHistory(data.length > 0);
+      setValidationCount(data.length);
+      if (data.length > 0) setLastActiveDate(data[0].created_at);
+    });
   }, [user]);
 
   async function handleSignOut() {
@@ -80,7 +90,7 @@ export default function Dashboard() {
           <div className="flex items-center gap-4">
             <div className="hidden sm:flex items-center gap-4 text-sm font-semibold">
               <Link to="/dashboard" className="text-cv-primary border-b-2 border-cv-secondary pb-0.5">Validate</Link>
-              <Link to="/history" className="text-cv-on-surface-variant hover:text-cv-primary transition-colors">History</Link>
+              <Link id="history-link" to="/history" className="text-cv-on-surface-variant hover:text-cv-primary transition-colors">History</Link>
             </div>
             {trial && <TrialBadge status={trial} />}
             <span className="text-sm text-cv-on-surface-variant font-medium hidden md:inline">{user?.email}</span>
@@ -104,6 +114,23 @@ export default function Dashboard() {
                 : ""}
           </p>
         </div>
+
+        {/* Usage nudge */}
+        {canValidate && !result && (
+          <UsageNudge validationCount={validationCount} lastActiveDate={lastActiveDate} />
+        )}
+
+        {/* Onboarding tooltips */}
+        {!onboarding.complete && onboarding.hint && (
+          <OnboardingTooltip
+            targetId={onboarding.hint.target}
+            text={onboarding.hint.text}
+            stepNumber={onboarding.step}
+            totalSteps={3}
+            onNext={onboarding.advance}
+            onDismiss={onboarding.dismiss}
+          />
+        )}
 
         {!canValidate && trial ? (
           <TrialExpiredGate />

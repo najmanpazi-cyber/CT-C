@@ -265,7 +265,7 @@ export default function ValidationForm({ onSubmit, submitting = false }: Validat
 
         {/* Buttons */}
         <div className="flex gap-3 pt-2">
-          <button type="submit" disabled={submitting}
+          <button id="validate-btn" type="submit" disabled={submitting}
             className="bg-medical-gradient text-cv-on-primary px-8 py-3 text-sm font-bold rounded-lg shadow-sm hover:shadow-md hover:brightness-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
             {submitting ? "Validating..." : "Validate"}
           </button>
