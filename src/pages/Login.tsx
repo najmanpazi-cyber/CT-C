@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 
 export default function Login() {
+  useLayoutEffect(() => { document.title = "ClaimVex | Sign In"; }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);

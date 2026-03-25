@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function MaterialIcon({ name, className = "" }: { name: string; className?: string }) {
@@ -5,6 +6,7 @@ function MaterialIcon({ name, className = "" }: { name: string; className?: stri
 }
 
 export default function Landing() {
+  useLayoutEffect(() => { document.title = "ClaimVex | Clinical Precision in Data"; }, []);
   const navigate = useNavigate();
 
   return (
@@ -265,45 +267,35 @@ export default function Landing() {
       {/* Footer */}
       <footer className="bg-cv-surface-container-high/50 border-t border-cv-outline-variant/20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 lg:gap-8 mb-16">
-            <div className="col-span-2 lg:col-span-1">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-8 mb-16">
+            <div>
               <span className="text-2xl font-extrabold text-cv-primary mb-6 block">ClaimVex</span>
               <p className="text-cv-on-surface-variant text-sm leading-relaxed mb-6">
-                Clinical precision in data. The industry standard for automated claim auditing and validation.
+                Clinical precision in data. AI-powered CPT validation for orthopedic practices.
               </p>
-              <div className="flex gap-4">
-                <a className="text-cv-on-surface-variant hover:text-cv-primary transition-colors" href="#">
-                  <MaterialIcon name="share" />
-                </a>
-                <a className="text-cv-on-surface-variant hover:text-cv-primary transition-colors" href="#">
-                  <MaterialIcon name="alternate_email" />
-                </a>
-              </div>
+              <a className="text-cv-on-surface-variant hover:text-cv-primary transition-colors text-sm font-medium" href="mailto:pazi@claimvex.com">
+                pazi@claimvex.com
+              </a>
             </div>
-            {[
-              { heading: "Product", links: ["Features", "Solutions", "Integration", "Pricing"] },
-              { heading: "Company", links: ["About Us", "Careers", "Trust Center", "Privacy"] },
-              { heading: "Resources", links: ["Documentation", "API Reference", "Blog", "Support"] },
-              { heading: "Contact", links: ["Sales", "Support", "Partnerships"] },
-            ].map((col) => (
-              <div key={col.heading}>
-                <h4 className="font-headline text-base font-extrabold text-cv-primary mb-6 uppercase tracking-wider">{col.heading}</h4>
-                <ul className="flex flex-col gap-3">
-                  {col.links.map((link) => (
-                    <li key={link}>
-                      <a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="#">{link}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            <div>
+              <h4 className="font-headline text-base font-extrabold text-cv-primary mb-6 uppercase tracking-wider">Product</h4>
+              <ul className="flex flex-col gap-3">
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="#features">Features</a></li>
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="#how-it-works">How It Works</a></li>
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="/why">Why ClaimVex</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-headline text-base font-extrabold text-cv-primary mb-6 uppercase tracking-wider">Get Started</h4>
+              <ul className="flex flex-col gap-3">
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="/signup">Start Free Trial</a></li>
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="mailto:pazi@claimvex.com?subject=ClaimVex%20Demo%20Request">Request Demo</a></li>
+                <li><a className="text-cv-on-surface-variant hover:text-cv-secondary transition-all text-sm font-medium" href="/login">Sign In</a></li>
+              </ul>
+            </div>
           </div>
           <div className="pt-8 border-t border-cv-outline-variant/20 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-cv-on-surface-variant text-xs font-medium">&copy; 2026 ClaimVex. All rights reserved. Clinical Precision in Data.</p>
-            <div className="flex gap-6">
-              <a className="text-cv-on-surface-variant hover:text-cv-primary text-xs font-bold transition-all" href="#">Terms of Service</a>
-              <a className="text-cv-on-surface-variant hover:text-cv-primary text-xs font-bold transition-all" href="#">Cookie Policy</a>
-            </div>
+            <p className="text-cv-on-surface-variant text-xs font-medium">&copy; 2026 ClaimVex. All rights reserved.</p>
           </div>
         </div>
       </footer>

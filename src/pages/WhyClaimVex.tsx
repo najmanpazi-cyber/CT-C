@@ -1,3 +1,4 @@
+import { useLayoutEffect } from "react";
 import { Link } from "react-router-dom";
 
 function MaterialIcon({ name, className = "" }: { name: string; className?: string }) {
@@ -25,6 +26,7 @@ function Check({ yes }: { yes: boolean }) {
 }
 
 export default function WhyClaimVex() {
+  useLayoutEffect(() => { document.title = "ClaimVex | Why ClaimVex"; }, []);
   return (
     <div className="min-h-screen bg-cv-surface font-body text-cv-on-surface">
       {/* Nav */}

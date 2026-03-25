@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { fetchValidations, computeMetrics } from "@/services/historyService";
@@ -34,6 +34,8 @@ export default function History() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [trial, setTrial] = useState<TrialStatus | null>(null);
   const [accuracy, setAccuracy] = useState<AccuracyScore | null>(null);
+
+  useLayoutEffect(() => { document.title = "ClaimVex | History"; }, []);
 
   useEffect(() => {
     if (!user) return;

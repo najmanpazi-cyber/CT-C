@@ -162,6 +162,16 @@ The full ClaimVex web application is built: auth, validation form, 5-module vali
 - CI/CD pipeline and HIPAA guard hook
 - Landing page (handled separately)
 
+## Pre-Launch Cleanup
+
+Pre-launch cleanup completed. All routes reviewed, legacy code removed, meta tags set, mobile checked. Specifically:
+- Deleted legacy clinical notes app (Index.tsx, Header.tsx, ClinicalInput.tsx, ResultsPanel.tsx, HistoryDrawer.tsx, results/ components, coding.ts types, exportUtils.ts, logger.ts, dead hooks)
+- Removed lovable-tagger dependency and all Lovable branding (README, vite plugin)
+- Added per-page document.title to all 7 pages
+- Rebranded 404 page to ClaimVex design system
+- Replaced dead footer links with real destinations
+- Supabase CLI linked (bunx supabase) for migrations and type generation
+
 ## Known Issues
 
 - `bun run test` (Vitest) fails on Bun 1.3.10 + Windows with "File URL path must be an absolute path". Use `bun test src/` as the workaround.

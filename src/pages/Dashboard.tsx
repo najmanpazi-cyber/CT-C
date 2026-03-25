@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import ValidationForm from "@/components/ValidationForm";
@@ -29,6 +29,8 @@ export default function Dashboard() {
   const [validationCount, setValidationCount] = useState(0);
   const [lastActiveDate, setLastActiveDate] = useState<string | null>(null);
   const onboarding = useOnboarding();
+
+  useLayoutEffect(() => { document.title = "ClaimVex | Validate"; }, []);
 
   useEffect(() => {
     if (!user) return;
