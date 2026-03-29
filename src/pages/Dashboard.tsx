@@ -77,8 +77,9 @@ export default function Dashboard() {
     setResult(null);
   }
 
+  const [showSamples, setShowSamples] = useState(false);
   const canValidate = trial && !trial.isExpired;
-  const showSampleData = hasHistory === false && !result && canValidate;
+  const showSampleData = (hasHistory === false || showSamples) && !result && canValidate;
 
   return (
     <div className="min-h-screen bg-cv-surface">
@@ -144,6 +145,16 @@ export default function Dashboard() {
         ) : (
           <div className="space-y-8">
             <ValidationForm onSubmit={handleValidate} />
+            {!showSampleData && hasHistory !== false && canValidate && (
+              <div className="text-center">
+                <button
+                  onClick={() => setShowSamples(true)}
+                  className="text-sm font-semibold text-cv-on-surface-variant hover:text-cv-primary transition-colors"
+                >
+                  Try sample scenarios →
+                </button>
+              </div>
+            )}
             {showSampleData && (
               <SampleDataPanel
                 onRunScenario={handleValidate}
