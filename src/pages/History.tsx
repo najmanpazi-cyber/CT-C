@@ -158,7 +158,7 @@ export default function History() {
               </div>
             ) : (
               /* History Table */
-              <div className="rounded-2xl border border-cv-outline-variant/20 bg-cv-surface-container-lowest overflow-hidden shadow-sm">
+              <div className="rounded-2xl border border-cv-outline-variant/20 bg-cv-surface-container-lowest overflow-hidden shadow-sm overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-cv-outline-variant/20 bg-cv-surface-container-low">
@@ -180,7 +180,7 @@ export default function History() {
                             <span className="px-5 py-4 text-cv-on-surface font-medium whitespace-nowrap">
                               {formatDate(v.created_at)}
                             </span>
-                            <span className="px-5 py-4 text-cv-on-surface font-mono text-xs">
+                            <span className="px-5 py-4 text-cv-on-surface font-mono text-xs whitespace-nowrap">
                               {v.input_data.cptCodes?.join(", ") ?? "—"}
                             </span>
                             <span className="px-5 py-4 text-center">
