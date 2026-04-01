@@ -61,10 +61,11 @@ cd Claimvex
 bun install
 
 # 3. Create .env file (not in git — was removed for security)
+# Get the values from Vercel Dashboard → claimvex1 → Settings → Environment Variables
 cat > .env << 'EOF'
-VITE_SUPABASE_PROJECT_ID="urepnoafzsvrzaemzqgs"
-VITE_SUPABASE_PUBLISHABLE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyZXBub2FmenN2cnphZW16cWdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwMzE3MTMsImV4cCI6MjA4MjYwNzcxM30.PdkZ2pwlWcAWwRp_kz_NETIYVqggPgc2dES6qLFV1cM"
-VITE_SUPABASE_URL="https://urepnoafzsvrzaemzqgs.supabase.co"
+VITE_SUPABASE_PROJECT_ID="<from Vercel dashboard>"
+VITE_SUPABASE_PUBLISHABLE_KEY="<from Vercel dashboard — the VITE_SUPABASE_PUBLISHABLE_KEY value>"
+VITE_SUPABASE_URL="<from Vercel dashboard — the VITE_SUPABASE_URL value>"
 EOF
 
 # 4. Link Supabase CLI (requires login first)
@@ -259,8 +260,8 @@ These must be set in Vercel Dashboard → Settings → Environment Variables:
 
 | Variable | Value |
 |----------|-------|
-| `VITE_SUPABASE_URL` | `https://urepnoafzsvrzaemzqgs.supabase.co` |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyZXBub2FmenN2cnphZW16cWdzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjcwMzE3MTMsImV4cCI6MjA4MjYwNzcxM30.PdkZ2pwlWcAWwRp_kz_NETIYVqggPgc2dES6qLFV1cM` |
+| `VITE_SUPABASE_URL` | Copy from Vercel Dashboard → Settings → Environment Variables |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Copy from Vercel Dashboard → Settings → Environment Variables |
 
 ---
 
