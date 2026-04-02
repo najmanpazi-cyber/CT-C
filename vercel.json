@@ -1,5 +1,5 @@
 {
   "rewrites": [
-    { "source": "/((?!robots\\.txt|sitemap\\.xml|favicon\\.ico|favicon\\.svg|favicon-.*\\.png|claimvex-logo\\.png|og-share-image\\.png|placeholder\\.svg|assets/).*)", "destination": "/index.html" }
+    { "source": "/((?!robots\\.txt|sitemap\\.xml|favicon\\.ico|favicon\\.svg|favicon-.*\\.png|claimvex-logo.*\\.png|og-share-image\\.png|placeholder\\.svg|assets/).*)", "destination": "/index.html" }
   ]
 }

@@ -144,7 +144,7 @@ export default function Landing() {
         <nav className="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-7xl mx-auto">
           {/* Logo */}
           <a href="#" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
-            <img src="/claimvex-logo.png" alt="ClaimVex" className="h-10" />
+            <img src="/claimvex-logo-white.png" alt="ClaimVex" className="h-10 w-auto" />
             <span className="px-2 py-0.5 bg-[#00685f]/20 text-[#6bd8cb] text-[10px] font-bold uppercase tracking-wider rounded border border-[#00685f]/30">
               Beta
             </span>
