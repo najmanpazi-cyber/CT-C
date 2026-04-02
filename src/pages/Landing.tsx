@@ -143,12 +143,12 @@ export default function Landing() {
       <header className="sticky top-0 z-50 bg-[#0A2540] shadow-lg shadow-[#0A2540]/10">
         <nav className="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-7xl mx-auto">
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <span className="text-2xl font-black text-white">ClaimVex</span>
+          <a href="#" className="flex items-center gap-3" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+            <img src="/claimvex-logo.png" alt="ClaimVex" className="h-10" />
             <span className="px-2 py-0.5 bg-[#00685f]/20 text-[#6bd8cb] text-[10px] font-bold uppercase tracking-wider rounded border border-[#00685f]/30">
               Beta
             </span>
-          </div>
+          </a>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
@@ -765,9 +765,7 @@ export default function Landing() {
       <footer className="bg-slate-50">
         <div className="flex flex-col md:flex-row justify-between items-start w-full px-6 md:px-8 py-16 max-w-7xl mx-auto gap-10">
           <div className="mb-10 md:mb-0">
-            <span className="text-xl font-black text-[#0A2540] mb-6 block">
-              ClaimVex
-            </span>
+            <img src="/claimvex-logo.png" alt="ClaimVex" className="h-8 mb-6 block" />
             <p className="text-sm text-slate-500 max-w-xs leading-relaxed">
               The precision engine for musculoskeletal procedure validation.
               Built for billing teams who demand 100% accuracy.
