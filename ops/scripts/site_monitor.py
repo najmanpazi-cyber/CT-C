@@ -34,10 +34,9 @@ def main():
         description="Check ClaimVex site health",
         epilog="Examples:\n"
                "  python3 site_monitor.py\n"
-               "  python3 site_monitor.py --config=custom_config.json\n",
+               "  python3 site_monitor.py --config-dir=~/.openclaw/claimvex/config\n",
         formatter_class=argparse.RawDescriptionHelpFormatter,
     )
-    parser.add_argument("--config", help="Path to monitor config JSON")
     parser.add_argument("--config-dir", help="Override config directory")
     parser.add_argument("--data-dir", help="Override data directory")
     args = parser.parse_args()
@@ -45,7 +44,7 @@ def main():
     config_dir = args.config_dir or os.path.join(DEFAULT_BASE, "config")
     data_dir = args.data_dir or os.path.join(DEFAULT_BASE, "data")
 
-    config_path = args.config or os.path.join(config_dir, "monitor_config.json")
+    config_path = os.path.join(config_dir, "monitor_config.json")
     config = load_json(config_path)
 
     url = config.get("url", "https://claimvex.com")
