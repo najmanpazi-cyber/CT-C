@@ -1,0 +1,5 @@
+{
+  "url": "https://claimvex.com",
+  "check_string": "ClaimVex",
+  "timeout_seconds": 10
+}

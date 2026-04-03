@@ -1,0 +1,8 @@
+{
+  "targets": [
+    { "name": "Optum360", "url": "https://www.optum360coding.com/", "check": "pricing" },
+    { "name": "AAPC", "url": "https://www.aapc.com/codes/", "check": "features" },
+    { "name": "EncoderPro", "url": "https://www.encoderpro.com/", "check": "pricing" }
+  ],
+  "search_query": "orthopedic CPT validation tool"
+}
