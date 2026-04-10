@@ -1,11 +1,21 @@
 const ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers":
-    "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "POST, OPTIONS",
-};
+const ALLOWED_ORIGINS = [
+  "https://claimvex.com",
+  "https://www.claimvex.com",
+];
+
+function getCorsHeaders(req: Request): Record<string, string> {
+  const origin = req.headers.get("origin") ?? "";
+  const allowed = ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  return {
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Headers":
+      "authorization, x-client-info, apikey, content-type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
+    "Vary": "Origin",
+  };
+}
 
 // ─────────────────────────────────────────────────────────
 // SHARED BASE PROMPT (all specialties)
@@ -396,6 +406,7 @@ interface ErrorResponse {
 }
 
 function errorResponse(
+  req: Request,
   status: number,
   code: string,
   message: string,
@@ -409,7 +420,7 @@ function errorResponse(
   };
   return new Response(JSON.stringify(body), {
     status,
-    headers: { ...corsHeaders, "Content-Type": "application/json" },
+    headers: { ...getCorsHeaders(req), "Content-Type": "application/json" },
   });
 }
 
@@ -431,11 +442,12 @@ function isRateLimited(): boolean {
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
-    return new Response("ok", { headers: corsHeaders });
+    return new Response("ok", { headers: getCorsHeaders(req) });
   }
 
   if (req.method !== "POST") {
     return errorResponse(
+      req,
       405,
       "METHOD_NOT_ALLOWED",
       "Only POST requests accepted",
@@ -445,6 +457,7 @@ Deno.serve(async (req: Request) => {
 
   if (isRateLimited()) {
     return errorResponse(
+      req,
       429,
       "RATE_LIMITED",
       "Too many requests",
@@ -468,6 +481,7 @@ Deno.serve(async (req: Request) => {
 
     if (!clinical_input || typeof clinical_input !== "string") {
       return errorResponse(
+        req,
         400,
         "MISSING_INPUT",
         "clinical_input is required",
@@ -477,6 +491,7 @@ Deno.serve(async (req: Request) => {
 
     if (clinical_input.trim().length < 10) {
       return errorResponse(
+        req,
         400,
         "INPUT_TOO_SHORT",
         "clinical_input must be at least 10 characters",
@@ -486,6 +501,7 @@ Deno.serve(async (req: Request) => {
 
     if (clinical_input.length > 15000) {
       return errorResponse(
+        req,
         400,
         "INPUT_TOO_LONG",
         "clinical_input exceeds 15000 character limit",
@@ -496,6 +512,7 @@ Deno.serve(async (req: Request) => {
     const apiKey = Deno.env.get("ANTHROPIC_API_KEY");
     if (!apiKey) {
       return errorResponse(
+        req,
         500,
         "CONFIG_ERROR",
         "ANTHROPIC_API_KEY not configured",
@@ -535,11 +552,11 @@ Deno.serve(async (req: Request) => {
     });
 
     if (!apiResponse.ok) {
-      const apiError = await apiResponse.text();
-      console.error("Claude API error:", apiResponse.status, apiError);
+      console.error("Claude API error: status", apiResponse.status);
 
       if (apiResponse.status === 429) {
         return errorResponse(
+          req,
           503,
           "AI_RATE_LIMITED",
           "Claude API rate limited",
@@ -549,6 +566,7 @@ Deno.serve(async (req: Request) => {
 
       if (apiResponse.status === 401) {
         return errorResponse(
+          req,
           500,
           "AI_AUTH_ERROR",
           "Claude API authentication failed",
@@ -557,6 +575,7 @@ Deno.serve(async (req: Request) => {
       }
 
       return errorResponse(
+        req,
         502,
         "AI_ERROR",
         `Claude API returned ${apiResponse.status}`,
@@ -569,6 +588,7 @@ Deno.serve(async (req: Request) => {
 
     if (!responseText) {
       return errorResponse(
+        req,
         502,
         "AI_EMPTY_RESPONSE",
         "Claude returned empty response",
@@ -579,8 +599,9 @@ Deno.serve(async (req: Request) => {
     const codingResult = extractJSON(responseText);
 
     if (!codingResult) {
-      console.error("Failed to parse Claude response:", responseText.substring(0, 500));
+      console.error("Failed to parse Claude response as JSON");
       return errorResponse(
+        req,
         502,
         "AI_PARSE_ERROR",
         "Could not parse AI response as JSON",
@@ -615,11 +636,12 @@ Deno.serve(async (req: Request) => {
 
     return new Response(JSON.stringify(result), {
       status: 200,
-      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      headers: { ...getCorsHeaders(req), "Content-Type": "application/json" },
     });
   } catch (err) {
     console.error("Unexpected error:", err);
     return errorResponse(
+      req,
       500,
       "INTERNAL_ERROR",
       (err as Error).message || "Unknown error",

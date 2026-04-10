@@ -2,6 +2,15 @@
 
 import type { StoredValidation, UserMetrics } from "@/services/historyService";
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
     month: "short", day: "numeric", year: "numeric",
@@ -29,7 +38,7 @@ export function openRoiReport(
     .map((v) => `
       <tr>
         <td>${formatDate(v.created_at)}</td>
-        <td class="code">${v.input_data.cptCodes?.join(", ") ?? "—"}</td>
+        <td class="code">${escapeHtml(v.input_data.cptCodes?.join(", ") ?? "—")}</td>
         <td class="fail">${v.errors_found} error${v.errors_found !== 1 ? "s" : ""}</td>
         <td class="warn">${v.warnings_found} warning${v.warnings_found !== 1 ? "s" : ""}</td>
         <td>$${(v.errors_found * 35).toLocaleString()}</td>
@@ -40,7 +49,7 @@ export function openRoiReport(
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>ClaimVex ROI Report — ${userEmail}</title>
+  <title>ClaimVex ROI Report — ${escapeHtml(userEmail)}</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 13px; color: #191c1e; background: #fff; padding: 40px; max-width: 900px; margin: 0 auto; }
@@ -74,7 +83,7 @@ export function openRoiReport(
     </div>
     <div class="meta">
       Generated: ${now}<br/>
-      Account: ${userEmail}<br/>
+      Account: ${escapeHtml(userEmail)}<br/>
       Period: ${firstDate} — ${lastDate}
     </div>
   </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
 import ValidationForm from "@/components/ValidationForm";
 import ValidationResults from "@/components/ValidationResults";
@@ -53,9 +54,13 @@ export default function Dashboard() {
 
     if (user) {
       setSaving(true);
-      await saveValidation(user.id, data, validationResult);
+      const { error } = await saveValidation(user.id, data, validationResult);
       setSaving(false);
-      setHasHistory(true);
+      if (error) {
+        toast.error("Failed to save validation to history.");
+      } else {
+        setHasHistory(true);
+      }
     }
   }
 
@@ -65,7 +70,12 @@ export default function Dashboard() {
 
     for (const scenario of SAMPLE_SCENARIOS) {
       const validationResult = runValidation(scenario.data);
-      await saveValidation(user.id, scenario.data, validationResult);
+      const { error } = await saveValidation(user.id, scenario.data, validationResult);
+      if (error) {
+        toast.error("Failed to save sample scenario. Please try again.");
+        setRunningAll(false);
+        return;
+      }
     }
 
     setRunningAll(false);
