@@ -160,7 +160,7 @@ The full ClaimVex web application is built: auth, validation form, 5-module vali
 ### What NOT to Touch
 - Validator modules (ACC-04 through ACC-08) unless bug found during integration
 - CI/CD pipeline and HIPAA guard hook
-- Landing page (handled separately)
+- `/ops` folder scripts without testing with Python 3 (Lu depends on these)
 
 ## Pre-Launch Cleanup
 
@@ -171,6 +171,24 @@ Pre-launch cleanup completed. All routes reviewed, legacy code removed, meta tag
 - Rebranded 404 page to ClaimVex design system
 - Replaced dead footer links with real destinations
 - Supabase CLI linked (bunx supabase) for migrations and type generation
+
+## Operations Tooling (/ops)
+
+The `/ops` folder contains Python 3 scripts for prospect management, outreach, monitoring, and reporting. These are built and tested by Claude Code, then delivered to Lu (OpenClaw agent) who runs them on a separate machine. See `ops/README.md` for details.
+
+**Rules:**
+- Python 3 stdlib only — no pip dependencies
+- All scripts must work standalone (no imports between scripts)
+- Test with Python 3 before pushing any changes
+- Do NOT add /ops to the JS test suite or modify package.json for Python
+
+## Security Hardening
+
+- **CORS:** Edge function at `supabase/functions/generate-codes/index.ts` restricts `Access-Control-Allow-Origin` to `claimvex.com` and `www.claimvex.com` only
+- **Security headers:** `vercel.json` includes CSP, HSTS, X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy
+- **Log sanitization:** Edge function never logs API response bodies or clinical content to console.error
+- **XSS:** `roiExportService.ts` uses `escapeHtml()` on all user-provided values before HTML interpolation
+- **Save errors:** Dashboard shows toast on save failure, never shows success if save failed
 
 ## Known Issues
 

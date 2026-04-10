@@ -1,273 +1,222 @@
 # ClaimVex — Agent Handoff Document
 
-**Created:** 2026-04-01
+**Last Updated:** 2026-04-10
 **Purpose:** Complete context for a new Claude Code agent picking up this project on a new machine.
 
 ---
 
-## What Is ClaimVex
+## 1. CURRENT STATUS
 
-ClaimVex is an AI-powered CPT coding validation engine for orthopedic practices. Medical coders enter CPT codes, modifiers, and date of service into a structured form and get instant pass/fail results from 5 validator modules. The tool catches coding errors before claims are submitted — reducing denials and revenue leakage.
+### Product: Fully Built & Live
+ClaimVex is **live at https://claimvex.com**, deployed via Vercel from `main` branch. All 5 build phases are complete:
+1. Authentication (Supabase Auth, email+password, protected routes)
+2. Validation Form (7-field structured input)
+3. Wire Validators + Results (5 CMS rule modules, pass/fail/warning cards)
+4. History + Metrics (Supabase storage, ROI dashboard, $35/denial estimate)
+5. Trial Management (30-day trial, banner from day 21, soft gate after day 30)
 
-**Business model:** 30-day free trial → $99/month. Beta targeting 3-5 orthopedic practices.
-**Live URL:** https://claimvex.com
-**Repo:** https://github.com/najmanpazi-cyber/Claimvex
-
----
-
-## Who Is the User (Pazi)
-
-- Non-technical co-founder/CTO — does not write code directly
-- Uses Claude Code as primary development tool
-- Prefers autonomous execution: "just do it" without asking for confirmation on technical decisions
-- Only ask when there's genuine ambiguity about product decisions
-- Concise, direct communication — no filler, no preamble
-- Manages multiple SaaS projects with AI assistance
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18 + TypeScript + Vite + Tailwind CSS + shadcn/ui |
-| Backend | Supabase (Auth, PostgreSQL, Edge Functions, RLS) |
-| Package Manager | **Bun** (NOT npm) |
-| Deployment | Vercel (auto-deploys from `main` branch) |
-| Test Runner | `bun test src/` (NOT `bun run test` — Vitest broken on Bun + Windows) |
-| Dev Server | `bun run dev` (port 8080) |
-| Type Check | `bunx tsc --noEmit` |
-| DB CLI | `bunx supabase` (installed as dev dependency) |
-
----
-
-## Current Health (as of 2026-04-01)
-
+### Tests & Build Health
 - **Tests:** 112 pass, 0 fail, 497 assertions across 9 files
 - **TypeScript:** 0 errors
-- **Build:** Clean, 486KB core bundle
-- **All commits pushed to GitHub**
+- **Lint:** 0 errors (9 pre-existing shadcn/ui warnings)
+- **Build:** Clean, ~486KB core bundle with code splitting
+
+### Operations Tooling: Built & Deployed
+The `/ops` folder contains 5 Python scripts for prospect management, outreach drafting, site monitoring, competitor tracking, and weekly reporting. Lu (OpenClaw agent) runs these on a separate machine.
+
+### What's NOT Done Yet
+- **Stripe billing** ($99/mo) — Pazi will set up, not urgent until first conversion
+- **Per-validation PDF export** — P1-1 from UX research, next dev priority
+- **Branded email** (pazi@claimvex.com) — separate from this repo
 
 ---
 
-## Desktop Setup Instructions
+## 2. THIS SESSION'S WORK (Apr 1–10, 2026)
+
+### Landing Page Redesign
+| Commit | Change |
+|--------|--------|
+| `954894a` | Full landing page rewrite from Stitch design — hero, trust bar, problem section, 3-step how-it-works, 5 modules, ROI mockup, pricing card, comparison table, FAQ accordions, footer |
+| `847275d` | Added prerenderer for SEO (Puppeteer at build time) |
+| `b6cd3d0` | Removed prerenderer — incompatible with Vercel build servers |
+
+### SEO & Brand Assets
+| Commit | Change |
+|--------|--------|
+| `4e95918` | Added sitemap.xml and updated robots.txt with sitemap reference |
+| `5776dc5` | Fixed vercel.json rewrite to exclude static files (sitemap, robots, favicons) |
+| `d4719a1` | Integrated brand assets — logo PNG, favicon SVG/ICO/192px, OG meta tags |
+| `a859605` | White logo for dark navbar background, added favicon-512.png |
+
+### Security Hardening (from full audit)
+| Commit | Change |
+|--------|--------|
+| `da81981` | 5 security fixes: CORS restricted to claimvex.com, security headers (CSP/HSTS/X-Frame-Options), log sanitization (no response bodies in console.error), save error handling with toast, ROI export XSS fix (escapeHtml) |
+
+### Operations Tooling
+| Commit | Change |
+|--------|--------|
+| `14f0e62` | Built entire /ops folder — 5 scripts, 3 configs, 1 template, README |
+| `e96223d` | CI lint fix (const vs let in Landing.tsx) |
+| `570bf3f` | Removed --config file flag from site_monitor, --config-dir only for consistency |
+
+---
+
+## 3. THE /OPS FOLDER
+
+Operations tooling built by Claude Code, delivered to Lu by Pazi. Lu runs them locally at `~/.openclaw/claimvex/`.
+
+```
+ops/
+├── scripts/
+│   ├── prospect_manager.py   — CRUD for prospect database (init, list, show, update, score, log-send)
+│   ├── draft_generator.py    — personalized outreach emails from template + prospect data
+│   ├── site_monitor.py       — HTTP health check (200 + content verify), silent on success
+│   ├── competitor_check.py   — SHA-256 hash comparison for competitor page changes
+│   └── weekly_report.py      — compiled report from all local data sources
+├── templates/
+│   └── outreach_email_v1.md  — email template with {contact_name} fallback handling
+├── config/
+│   ├── prospects_seed.json   — 10 FL ortho prospects (5 billing cos, 5 practices)
+│   ├── competitors.json      — Optum360, AAPC, EncoderPro URLs
+│   └── monitor_config.json   — claimvex.com health check config
+└── README.md
+```
+
+**All scripts:** Python 3 stdlib only (no pip dependencies). `--data-dir`, `--config-dir`, `--template-dir` flags for path overrides. Default base: `~/.openclaw/claimvex/`.
+
+**Do NOT:** Add /ops to the JS test suite, add Python dependencies to package.json, or modify /ops scripts without testing with Python 3.
+
+---
+
+## 4. THREE-LAYER OPERATING MODEL
+
+No ClaimVex_Operating_Model.md file exists — here's the working model:
+
+| Role | Agent | Does | Does NOT |
+|------|-------|------|----------|
+| **Strategy & Product** | Claude (via Pazi) | Product decisions, prioritization, messaging, positioning | Write code, run scripts |
+| **Engineering** | Claude Code (you) | Build features, write/test code, security, CI/CD, build ops tooling | Make product decisions, run ops scripts in production |
+| **Execution & Ops** | Lu (OpenClaw) | Run ops scripts, research prospects, draft outreach, monitor site | Write or debug code — routes bugs to Pazi → Claude Code |
+| **Decisions** | Pazi | Approves outreach, reviews drafts, makes business calls | Write code, run scripts directly |
+
+**Key constraint:** Lu runs on per-token billing. Claude Code runs on a Max account. So Claude Code builds ALL tooling; Lu only executes it.
+
+**Workflow:** Claude Code builds scripts → Pazi downloads and delivers to Lu → Lu runs them → If bugs found, Lu reports to Pazi → Pazi routes to Claude Code for fix.
+
+---
+
+## 5. OUTSTANDING TASKS
+
+### Next Priority
+1. **Per-validation PDF export** (P1-1 from UX research) — highest-conversion feature. Generate a clean PDF of validation results that billing managers can attach to claims or share with providers.
+
+### When Needed
+2. **Stripe integration** ($99/month checkout + webhooks + server-side trial gate) — implement when first trial user approaches conversion. Pazi said he'd handle initial Stripe account setup.
+
+### Minor Fixes (non-blocking)
+3. **weekly_report.py logic** — reports "10 prospects still need research" when 1 is already scored/sent. The `researching` status count doesn't account for scored prospects that haven't been moved to `draft_ready`. Fix: count only prospects with status=`researching` (already correct) but verify the seed data statuses are being updated properly by Lu.
+4. **competitor_check.py SSL** — Optum360's site (`www.optum360coding.com`) returns SSL cert mismatch. Their cert issue, not ours. Script handles it gracefully (logs warning, continues). No action needed unless it persists.
+
+### Deferred (post-beta)
+- Email drip sequence (needs Resend or Postmark)
+- CSV/batch upload
+- Trial email notifications
+- Error monitoring (Sentry — decided premature for beta)
+- P1-3: Keyboard shortcuts for power users
+- P1-5: Saved validation templates
+- P1-6: Weekly validation summary email
+
+---
+
+## 6. LU'S CURRENT STATE
+
+- **Setup:** Complete. Scripts installed at `~/.openclaw/claimvex/scripts/`
+- **Phase:** Phase 1 execution active
+- **Current work:** Researching Tier 1 prospects (billing companies first, then practices)
+- **Data:** prospects.json initialized from seed, outreach_log.json tracking sends
+- **Config:** Using default paths at `~/.openclaw/claimvex/`
+
+---
+
+## 7. KEY FILE LOCATIONS
+
+| File | Purpose |
+|------|---------|
+| `CLAUDE.md` | Project instructions for Claude Code agents — coding standards, architecture, commands |
+| `HANDOFF.md` | This file — full context for session resume |
+| `CLAIMVEX_BUILD_PLAN.md` | Original 5-phase build plan (all phases complete) |
+| `ClaimVex_UX_Research_Audit.md` | UX audit with prioritized recommendations |
+| `ops/` | Operations tooling folder (scripts, configs, templates) |
+| `ops/README.md` | Ops tooling documentation |
+| `src/services/validationService.ts` | Core validation orchestration |
+| `src/pages/Landing.tsx` | Landing page (new Stitch design) |
+| `src/pages/Dashboard.tsx` | Main validation form + results |
+| `supabase/functions/generate-codes/index.ts` | Claude API edge function (CORS-restricted) |
+| `vercel.json` | Vercel config — SPA rewrites + security headers |
+
+---
+
+## 8. WHAT TO DO AT SESSION START
 
 ```bash
-# 1. Clone the repo
+# 1. Pull latest
+git pull
+
+# 2. Read context files
+# Read HANDOFF.md (this file) and CLAUDE.md before doing anything
+
+# 3. Verify health
+bun test src/        # Should be 112 pass, 0 fail
+bunx tsc --noEmit    # Should be 0 errors
+bun run lint         # Should be 0 errors (warnings OK)
+bun run build        # Should succeed
+
+# 4. Check for any issues
+git log --oneline -5  # See recent commits
+git status            # Check for uncommitted work
+```
+
+**Important:** Do NOT make changes until you've read both HANDOFF.md and CLAUDE.md. The project has specific conventions (ACC spec structure, HIPAA guards, functional style) that must be followed.
+
+---
+
+## 9. ENVIRONMENT SETUP (if on a new machine)
+
+```bash
+# Clone and install
 git clone https://github.com/najmanpazi-cyber/Claimvex.git
 cd Claimvex
-
-# 2. Install dependencies
 bun install
 
-# 3. Create .env file (not in git — was removed for security)
-# Get the values from Vercel Dashboard → claimvex1 → Settings → Environment Variables
+# Create .env (values from Vercel Dashboard → claimvex1 → Settings → Environment Variables)
 cat > .env << 'EOF'
 VITE_SUPABASE_PROJECT_ID="<from Vercel dashboard>"
-VITE_SUPABASE_PUBLISHABLE_KEY="<from Vercel dashboard — the VITE_SUPABASE_PUBLISHABLE_KEY value>"
-VITE_SUPABASE_URL="<from Vercel dashboard — the VITE_SUPABASE_URL value>"
+VITE_SUPABASE_PUBLISHABLE_KEY="<from Vercel dashboard>"
+VITE_SUPABASE_URL="<from Vercel dashboard>"
 EOF
 
-# 4. Link Supabase CLI (requires login first)
-bunx supabase login --token YOUR_TOKEN_HERE
-bunx supabase link --project-ref urepnoafzsvrzaemzqgs
-
-# 5. Verify everything works
+# Verify
 bun test src/
 bunx tsc --noEmit
 bun run dev
 ```
 
-**Important:** Generate a new Supabase access token at https://supabase.com/dashboard/account/tokens for the desktop machine. The old token from the laptop should be rotated.
-
 ---
 
-## Architecture Overview
-
-### 5 Validator Modules (all client-side, deterministic)
-
-| Module | ACC Spec | Rules | Action Types |
-|--------|----------|-------|-------------|
-| PTP Pair Check | ACC-04 | R-3.1.1 to R-3.1.4 | block |
-| MUE Limit Check | ACC-05 | R-3.2.1, R-3.2.2 | block, warn |
-| Modifier 59/X | ACC-06 | R-3.3.1 to R-3.3.3 | force-review, block, warn |
-| Global Period | ACC-07 | R-3.4.1 to R-3.4.4 | block, force-review |
-| Documentation | ACC-08 | R-3.5.1 to R-3.5.5 | block, warn |
-
-### Data Flow
-
-```
-ValidationForm → validationService.ts → [5 validators] → ValidationResults
-                                    ↓
-                              historyService.ts → Supabase (validations table)
-```
-
-### File Layout (load-bearing — do not restructure)
-
-```
-src/data/{domain}/         → Rule data (JSON)
-src/validators/            → Validator logic
-src/utils/apply*           → Validation executor
-src/test/validators/       → Test suites
-docs/ACC-{NN}-*.md         → Implementation documentation
-```
-
-### Routes
-
-| Route | Page | Auth Required |
-|-------|------|--------------|
-| `/` | Landing | No |
-| `/login` | Login | No |
-| `/signup` | Signup | No |
-| `/dashboard` | Validation form + results | Yes |
-| `/history` | Validation history + metrics | Yes |
-| `/why` | Competitive comparison | No |
-| `*` | 404 | No |
-
-### Supabase Tables (project: urepnoafzsvrzaemzqgs)
-
-| Table | RLS | Purpose |
-|-------|-----|---------|
-| `validations` | Per-user | Stores validation input + results |
-| `user_profiles` | Per-user | Trial tracking (trial_start, plan) |
-| `coding_feedback` | Insert-only | Legacy feedback collection |
-
----
-
-## What Was Built (Complete)
-
-### 5-Phase Build Plan — ALL COMPLETE
-
-1. **Authentication** — Supabase Auth, email+password, protected routes
-2. **Validation Form** — 7-field form with client-side validation
-3. **Wire Validators + Results** — Service layer + per-module pass/fail cards
-4. **History + Metrics** — Supabase storage, ROI dashboard ($35/denial)
-5. **Trial Management** — 30-day trial, banner from day 21, soft gate after day 30
-
-### Optimization Features Shipped
-
-- Copy-to-clipboard on validation results
-- 3-step guided onboarding walkthrough
-- Usage-based retention nudges (inactivity + milestones)
-- Subspecialty selection on signup
-- Coding accuracy score on /history
-- "Why ClaimVex" competitive comparison page at /why
-- ROI export report (print-friendly HTML)
-- Code splitting (React.lazy) — 667KB → 486KB bundle
-
-### Recent UX Improvements (this session, March 2026)
-
-| Commit | Change |
-|--------|--------|
-| `33c6109` | Auto-expand FAIL/WARNING modules in results |
-| `263dfa3` | Display CMS rule source references (policy_anchor) |
-| `5a936ec` | Support space/newline-separated CPT code paste |
-| `4f61372` | Sample data panel accessible to all users (not just first-time) |
-| `71526ec` | Remember last-used payer type and laterality via localStorage |
-| `d61b9e8` | Fix CPT codes column wrapping in history table |
-| `09391dd` | Rename "Error Rate" to "Claims with Issues" + add context subtitle |
-| `0401ce1` | Fix claims-with-issues percentage calculation |
-
-### Infrastructure Fixes (this session)
-
-| Commit | Change |
-|--------|--------|
-| `547f96e` | ACC-10 fix: R-3.4.2 boolean gate + sync DB types with Supabase CLI |
-| `60ef3c0` | Pre-launch cleanup: deleted 20+ legacy files, removed Lovable branding, added per-page titles |
-| `ae306e5` | Added vercel.json for SPA routing |
-| `36ff485` | Switched .env to correct Supabase project (urepnoafzsvrzaemzqgs) |
-| `1bbf6de` | Removed .env from git tracking |
-
----
-
-## What Is Still Open
-
-### Must Do
-
-1. **Stripe billing integration** — No way to charge $99/mo yet. Pazi said he'd set this up himself.
-2. **Verify Vercel deployment is stable** — There were intermittent 404s caused by Lovable pushing conflicting commits. Lovable needs to be disconnected from this repo.
-3. **Run subspecialty migration on DB** — The columns may not exist on the live DB yet. Run in Supabase SQL Editor:
-   ```sql
-   ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS subspecialty text DEFAULT 'general_ortho';
-   ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS total_validations integer DEFAULT 0;
-   ALTER TABLE public.user_profiles ADD COLUMN IF NOT EXISTS clean_validations integer DEFAULT 0;
-   ```
-
-### Trial Testing (partially complete)
-
-- Test 1 (fresh signup badge) — PASSED
-- Test 2 (banner at day 21) — PASSED
-- Test 3 (expired gate at day 31) — instructions given, user didn't confirm
-- Test 4 (paid plan bypass) — not tested yet
-- Test 5 (reset to normal) — not done yet
-
-To resume: set `trial_start` and `plan` in Supabase `user_profiles` table as described in the trial testing section of the conversation.
-
-### Deferred (explicitly postponed by Pazi)
-
-- Email drip sequence (needs email provider: Resend or Postmark)
-- CSV/batch upload — post-beta
-- Trial email notifications — post-beta
-- Error monitoring (Sentry was added then reverted — Pazi decided it's premature for beta)
-
-### UX Research Audit
-
-A comprehensive UX audit document exists at `ClaimVex_UX_Research_Audit.md` in the project root. Key P0 items have been addressed. Remaining recommendations:
-
-- **P1-1:** Per-validation PDF export
-- **P1-2:** ROI report redesign as "screenshot for the manager"
-- **P1-3:** Keyboard shortcuts for power users
-- **P1-5:** Saved validation templates
-- **P1-6:** Weekly validation summary email
-
----
-
-## Known Issues
-
-- `bun run test` (Vitest direct) fails on Bun + Windows. Use `bun test src/` instead.
-- Lovable (the original scaffolding tool) was pushing commits to the same repo, causing conflicts. Some Lovable commits reverted our changes (re-added deleted files, modified types.ts). **Lovable should be disconnected from this repo.**
-- The GitHub repo was renamed from `CT-C` to `Claimvex`. The local remote URL has been updated.
-
----
-
-## Tooling Installed
-
-| Tool | How to Run | Purpose |
-|------|-----------|---------|
-| Supabase CLI | `bunx supabase` | Migrations, type gen, DB management |
-| GSD (Get Shit Done) | `/gsd:help` (slash command) | Meta-prompting system for structured development |
-| CI/CD | `.github/workflows/ci.yml` | Typecheck + lint + test + build on push/PR |
-
----
-
-## Key Files to Read First
-
-| File | Purpose |
-|------|---------|
-| `CLAUDE.md` | Project instructions for Claude Code agents |
-| `CLAIMVEX_BUILD_PLAN.md` | Full 5-phase build plan |
-| `ClaimVex_UX_Research_Audit.md` | UX audit with prioritized recommendations |
-| `src/services/validationService.ts` | Core orchestration — how form data flows through validators |
-| `src/services/trialService.ts` | Trial management logic |
-| `src/components/ValidationForm.tsx` | The main input form |
-| `src/components/ValidationResults.tsx` | Results display with expandable cards |
-
----
-
-## Vercel Environment Variables
-
-These must be set in Vercel Dashboard → Settings → Environment Variables:
-
-| Variable | Value |
-|----------|-------|
-| `VITE_SUPABASE_URL` | Copy from Vercel Dashboard → Settings → Environment Variables |
-| `VITE_SUPABASE_PUBLISHABLE_KEY` | Copy from Vercel Dashboard → Settings → Environment Variables |
-
----
-
-## Git Conventions
+## 10. GIT CONVENTIONS
 
 - **Conventional commits:** `feat(ACC-09): description`, `fix(PTP): description`, `ux: description`
 - **Atomic commits:** Each commit is a single logical change
 - **Never auto-commit** — only commit when Pazi explicitly asks
 - **Never force push to main**
+
+---
+
+## 11. WHO IS PAZI
+
+- Non-technical co-founder/CTO — does not write code
+- Uses Claude Code as primary development tool
+- Prefers autonomous execution: just do it, don't ask for confirmation on technical decisions
+- Only ask when there's genuine ambiguity about product decisions
+- Concise, direct communication — no filler
